@@ -66,6 +66,31 @@ app.post("/template", async (req, res) => {
   return;
 });
 
+app.post("/chat", async (req, res) => {
+  try {
+    const messages = req.body.messages;
+
+    if (!messages) {
+      res.status(400).json({ error: "Messages are required" });
+      return;
+    }
+
+    const response = await client.responses.create({
+      model: "gpt-5",
+      max_output_tokens: 8000,
+      input: messages,
+    });
+
+    res.json({ code: response.output_text }).status(200);
+  } catch (error) {
+    console.error("Error in /chat endpoint:", error);
+    res.status(500).json({
+      error: "Internal server error",
+      message: error instanceof Error ? error.message : "Unknown error",
+    });
+  }
+});
+
 app.listen(3000);
 
 // async function main() {
@@ -87,6 +112,25 @@ app.listen(3000);
 //     }
 //   }
 //   console.log("\n=================================================");
+
+//   const response = client.responses.create({
+//     model: "gpt-5-codex",
+//     input: [
+//       {
+//         role: "system",
+//         content:
+//           "write self contained typescript component files for any user requirements",
+//       },
+//       {
+//         role: "user",
+//         content:
+//           "create a beautiful react component for an animated todo app hero section in neomorphism design",
+//       },
+//     ],
+//     max_output_tokens: 8000,
+//   });
+
+//   console.log("response", (await response).output_text);
 // }
 
 // main();
