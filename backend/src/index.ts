@@ -1,3 +1,4 @@
+import cors from "cors";
 import "dotenv/config";
 import express from "express";
 import OpenAI from "openai";
@@ -11,6 +12,7 @@ const client = new OpenAI({
 
 const app = express();
 
+app.use(cors());
 app.use(express.json());
 
 app.post("/template", async (req, res) => {
@@ -28,6 +30,8 @@ app.post("/template", async (req, res) => {
     model: "gpt-4o-mini",
     max_completion_tokens: 100,
   });
+
+  console.log("response from llm", completion.id);
   const choice = completion.choices[0]?.message.content;
   console.log("choice for framework: ", choice);
 

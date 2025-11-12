@@ -1,38 +1,38 @@
-'use client'
+"use client";
 
-import { memo, useState, KeyboardEvent, useRef, useEffect } from 'react'
-import { useRouter } from 'next/navigation'
-import { useSetCurrentPrompt, useSetProjectId } from '@/zustand'
+import { useSetCurrentPrompt, useSetProjectId } from "@/zustand";
+import { useRouter } from "next/navigation";
+import { KeyboardEvent, memo, useEffect, useRef, useState } from "react";
 
 const PromptInput = memo(function PromptInput() {
-  const [prompt, setPrompt] = useState('')
-  const textareaRef = useRef<HTMLTextAreaElement>(null)
-  const router = useRouter()
-  const setCurrentPrompt = useSetCurrentPrompt()
-  const setProjectId = useSetProjectId()
+  const [prompt, setPrompt] = useState("");
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const router = useRouter();
+  const setCurrentPrompt = useSetCurrentPrompt();
+  const setProjectId = useSetProjectId();
 
   useEffect(() => {
     if (textareaRef.current) {
-      textareaRef.current.style.height = 'auto'
-      textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`
+      textareaRef.current.style.height = "auto";
+      textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
     }
-  }, [prompt])
+  }, [prompt]);
 
   const handleSubmit = () => {
-    if (!prompt.trim()) return
+    if (!prompt.trim()) return;
 
-    const projectId = Date.now().toString()
-    setCurrentPrompt(prompt.trim())
-    setProjectId(projectId)
-    router.push(`/project/${projectId}`)
-  }
+    const projectId = Date.now().toString();
+    setCurrentPrompt(prompt.trim());
+    setProjectId(projectId);
+    router.push(`/project/${projectId}`);
+  };
 
   const handleKeyDown = (e: KeyboardEvent<HTMLTextAreaElement>) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
-      e.preventDefault()
-      handleSubmit()
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      handleSubmit();
     }
-  }
+  };
 
   return (
     <div className="w-full max-w-3xl mx-auto">
@@ -54,18 +54,8 @@ const PromptInput = memo(function PromptInput() {
           Create
         </button>
       </div>
-      <div className="mt-4 flex items-center justify-center gap-6 text-sm text-[var(--text-tertiary)]">
-        <span>or import from</span>
-        <button className="neo-flat neo-rounded-sm px-4 py-2 text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors">
-          Figma
-        </button>
-        <button className="neo-flat neo-rounded-sm px-4 py-2 text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors">
-          GitHub
-        </button>
-      </div>
     </div>
-  )
-})
+  );
+});
 
-export default PromptInput
-
+export default PromptInput;
