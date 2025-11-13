@@ -1,10 +1,7 @@
-"use client";
-
-import { memo } from "react";
 import FileNavigator from "./FileNavigator";
 import CodeViewer from "./CodeViewer";
 
-const FilesTab = memo(function FilesTab() {
+export default function FilesTab() {
   return (
     <div className="h-full flex gap-4">
       {/* File Navigator - 25% of available width */}
@@ -17,7 +14,4 @@ const FilesTab = memo(function FilesTab() {
       </div>
     </div>
   );
-});
-
-export default FilesTab;
-
+}

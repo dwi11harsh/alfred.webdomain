@@ -1,9 +1,6 @@
-'use client'
-
-import { memo } from 'react'
 import Card from '../ui/Card'
 
-const PreviewTab = memo(function PreviewTab() {
+export default function PreviewTab() {
   return (
     <div className="h-full">
       <Card variant="outset" className="h-full flex items-center justify-center">
@@ -13,8 +10,5 @@ const PreviewTab = memo(function PreviewTab() {
         </div>
       </Card>
     </div>
-  )
-})
-
-export default PreviewTab
-
+  );
+}

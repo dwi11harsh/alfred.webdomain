@@ -1,9 +1,6 @@
-'use client'
-
-import { memo } from 'react'
 import Card from '../ui/Card'
 
-const CodeTab = memo(function CodeTab() {
+export default function CodeTab() {
   return (
     <div className="h-full">
       <Card variant="inset" className="h-full">
@@ -16,7 +13,4 @@ const CodeTab = memo(function CodeTab() {
       </Card>
     </div>
   )
-})
-
-export default CodeTab
-
+}

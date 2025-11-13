@@ -1,14 +1,10 @@
-'use client'
-
-import { memo } from 'react'
-
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'primary' | 'secondary' | 'outline'
   size?: 'sm' | 'md' | 'lg'
   children: React.ReactNode
 }
 
-const Button = memo(function Button({
+export default function Button({
   variant = 'primary',
   size = 'md',
   children,
@@ -37,7 +33,4 @@ const Button = memo(function Button({
       {children}
     </button>
   )
-})
-
-export default Button
-
+}

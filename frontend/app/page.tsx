@@ -1,5 +1,3 @@
-"use client";
-
 import { PromptInput } from "@/components";
 
 export default function Home() {
