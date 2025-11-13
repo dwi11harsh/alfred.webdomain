@@ -4,7 +4,7 @@ enum Framework {
 }
 
 function GetFramework (prompt: string) -> Framework {
-    client Gpt4omini
+    client Gpt4ominiSmall
     prompt #"
         {{_.role("system")}}
         respond with a suitable framework from the listed framework as to which one would be suitable for the user's requirment

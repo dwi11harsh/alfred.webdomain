@@ -16,11 +16,14 @@ from . import stream_types
 
 type_map = {
 
-    "types.File": types.File,
-    "stream_types.File": stream_types.File,
+    "types.ProjectComponent": types.ProjectComponent,
+    "stream_types.ProjectComponent": stream_types.ProjectComponent,
+
+    "types.ProjectStructure": types.ProjectStructure,
+    "stream_types.ProjectStructure": stream_types.ProjectStructure,
 
 
-    "types.DefinitionType": types.DefinitionType,
+    "types.ComponentType": types.ComponentType,
 
     "types.Framework": types.Framework,
 

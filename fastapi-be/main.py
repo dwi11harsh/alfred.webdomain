@@ -30,6 +30,6 @@ async def getFramework(request: PromptRequest):
 async def getNodejsSteps(request: PromptRequest):
     prompt = request.prompt
 
-    steps = await b.PlanNodeProject(prompt = prompt)
+    steps = await b.PlanExpressServer(user_prompt=prompt)
 
     return {"prompt-steps":steps}

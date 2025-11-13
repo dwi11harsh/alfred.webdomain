@@ -23,14 +23,26 @@ class StreamState(BaseModel, typing.Generic[StreamStateValueT]):
     value: StreamStateValueT
     state: typing_extensions.Literal["Pending", "Incomplete", "Complete"]
 # #########################################################################
-# Generated classes (1)
+# Generated classes (2)
 # #########################################################################
 
-class File(BaseModel):
-    route: typing.Optional[str] = None
-    input: typing.Optional[str] = None
-    output: typing.Optional[str] = None
-    process: typing.Optional[str] = None
+class ProjectComponent(BaseModel):
+    type: typing.Optional[types.ComponentType] = None
+    name: typing.Optional[str] = None
+    description: typing.Optional[str] = None
+    dependencies: typing.List[str]
+    specific_instructions: typing.Optional[str] = None
+    expected_behavior: typing.Optional[str] = None
+    input_validation: typing.Optional[str] = None
+    error_handling: typing.Optional[str] = None
+    example_usage: typing.Optional[str] = None
+
+class ProjectStructure(BaseModel):
+    components: typing.List["ProjectComponent"]
+    entry_point: typing.Optional[str] = None
+    package_dependencies: typing.List[str]
+    file_structure: typing.List[str]
+    implementation_order: typing.List[str]
 
 # #########################################################################
 # Generated type aliases (0)

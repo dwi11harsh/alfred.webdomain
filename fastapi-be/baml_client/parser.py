@@ -30,11 +30,11 @@ class LlmResponseParser:
         result = self.__options.merge_options(baml_options).parse_response(function_name="GetFramework", llm_response=llm_response, mode="request")
         return typing.cast(types.Framework, result)
 
-    def PlanNodeProject(
+    def PlanExpressServer(
         self, llm_response: str, baml_options: BamlCallOptions = {},
-    ) -> typing.List["types.File"]:
-        result = self.__options.merge_options(baml_options).parse_response(function_name="PlanNodeProject", llm_response=llm_response, mode="request")
-        return typing.cast(typing.List["types.File"], result)
+    ) -> types.ProjectStructure:
+        result = self.__options.merge_options(baml_options).parse_response(function_name="PlanExpressServer", llm_response=llm_response, mode="request")
+        return typing.cast(types.ProjectStructure, result)
 
     
 
@@ -50,10 +50,10 @@ class LlmStreamParser:
         result = self.__options.merge_options(baml_options).parse_response(function_name="GetFramework", llm_response=llm_response, mode="stream")
         return typing.cast(types.Framework, result)
 
-    def PlanNodeProject(
+    def PlanExpressServer(
         self, llm_response: str, baml_options: BamlCallOptions = {},
-    ) -> typing.List["stream_types.File"]:
-        result = self.__options.merge_options(baml_options).parse_response(function_name="PlanNodeProject", llm_response=llm_response, mode="stream")
-        return typing.cast(typing.List["stream_types.File"], result)
+    ) -> stream_types.ProjectStructure:
+        result = self.__options.merge_options(baml_options).parse_response(function_name="PlanExpressServer", llm_response=llm_response, mode="stream")
+        return typing.cast(stream_types.ProjectStructure, result)
 
     

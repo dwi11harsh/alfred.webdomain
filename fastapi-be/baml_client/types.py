@@ -40,24 +40,39 @@ def all_succeeded(checks: typing.Dict[CheckName, Check]) -> bool:
 # Generated enums (2)
 # #########################################################################
 
-class DefinitionType(str, Enum):
+class ComponentType(str, Enum):
     Route = "Route"
-    HelperFunction = "HelperFunction"
     Middleware = "Middleware"
+    Utility = "Utility"
+    Configuration = "Configuration"
+    Model = "Model"
+    Service = "Service"
 
 class Framework(str, Enum):
     React = "React"
     Node = "Node"
 
 # #########################################################################
-# Generated classes (1)
+# Generated classes (2)
 # #########################################################################
 
-class File(BaseModel):
-    route: str
-    input: str
-    output: str
-    process: str
+class ProjectComponent(BaseModel):
+    type: ComponentType
+    name: str
+    description: str
+    dependencies: typing.List[str]
+    specific_instructions: str
+    expected_behavior: str
+    input_validation: str
+    error_handling: str
+    example_usage: str
+
+class ProjectStructure(BaseModel):
+    components: typing.List["ProjectComponent"]
+    entry_point: str
+    package_dependencies: typing.List[str]
+    file_structure: typing.List[str]
+    implementation_order: typing.List[str]
 
 # #########################################################################
 # Generated type aliases (0)
