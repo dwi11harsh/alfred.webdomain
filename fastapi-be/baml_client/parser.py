@@ -30,6 +30,12 @@ class LlmResponseParser:
         result = self.__options.merge_options(baml_options).parse_response(function_name="GetFramework", llm_response=llm_response, mode="request")
         return typing.cast(types.Framework, result)
 
+    def NodeRouteGenerator(
+        self, llm_response: str, baml_options: BamlCallOptions = {},
+    ) -> types.RouteGeneratorOutput:
+        result = self.__options.merge_options(baml_options).parse_response(function_name="NodeRouteGenerator", llm_response=llm_response, mode="request")
+        return typing.cast(types.RouteGeneratorOutput, result)
+
     def PlanExpressServer(
         self, llm_response: str, baml_options: BamlCallOptions = {},
     ) -> types.ProjectStructure:
@@ -49,6 +55,12 @@ class LlmStreamParser:
     ) -> types.Framework:
         result = self.__options.merge_options(baml_options).parse_response(function_name="GetFramework", llm_response=llm_response, mode="stream")
         return typing.cast(types.Framework, result)
+
+    def NodeRouteGenerator(
+        self, llm_response: str, baml_options: BamlCallOptions = {},
+    ) -> stream_types.RouteGeneratorOutput:
+        result = self.__options.merge_options(baml_options).parse_response(function_name="NodeRouteGenerator", llm_response=llm_response, mode="stream")
+        return typing.cast(stream_types.RouteGeneratorOutput, result)
 
     def PlanExpressServer(
         self, llm_response: str, baml_options: BamlCallOptions = {},

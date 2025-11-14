@@ -94,6 +94,21 @@ class BamlAsyncClient:
                 "prompt": prompt,
             })
             return typing.cast(types.Framework, result.cast_to(types, types, stream_types, False, __runtime__))
+    async def NodeRouteGenerator(self, generated_prompt: types.ProjectComponent,
+        baml_options: BamlCallOptions = {},
+    ) -> types.RouteGeneratorOutput:
+        # Check if on_tick is provided
+        if 'on_tick' in baml_options:
+            # Use streaming internally when on_tick is provided
+            stream = self.stream.NodeRouteGenerator(generated_prompt=generated_prompt,
+                baml_options=baml_options)
+            return await stream.get_final_response()
+        else:
+            # Original non-streaming code
+            result = await self.__options.merge_options(baml_options).call_function_async(function_name="NodeRouteGenerator", args={
+                "generated_prompt": generated_prompt,
+            })
+            return typing.cast(types.RouteGeneratorOutput, result.cast_to(types, types, stream_types, False, __runtime__))
     async def PlanExpressServer(self, user_prompt: str,
         baml_options: BamlCallOptions = {},
     ) -> types.ProjectStructure:
@@ -130,6 +145,18 @@ class BamlStreamClient:
           lambda x: typing.cast(types.Framework, x.cast_to(types, types, stream_types, False, __runtime__)),
           ctx,
         )
+    def NodeRouteGenerator(self, generated_prompt: types.ProjectComponent,
+        baml_options: BamlCallOptions = {},
+    ) -> baml_py.BamlStream[stream_types.RouteGeneratorOutput, types.RouteGeneratorOutput]:
+        ctx, result = self.__options.merge_options(baml_options).create_async_stream(function_name="NodeRouteGenerator", args={
+            "generated_prompt": generated_prompt,
+        })
+        return baml_py.BamlStream[stream_types.RouteGeneratorOutput, types.RouteGeneratorOutput](
+          result,
+          lambda x: typing.cast(stream_types.RouteGeneratorOutput, x.cast_to(types, types, stream_types, True, __runtime__)),
+          lambda x: typing.cast(types.RouteGeneratorOutput, x.cast_to(types, types, stream_types, False, __runtime__)),
+          ctx,
+        )
     def PlanExpressServer(self, user_prompt: str,
         baml_options: BamlCallOptions = {},
     ) -> baml_py.BamlStream[stream_types.ProjectStructure, types.ProjectStructure]:
@@ -157,6 +184,13 @@ class BamlHttpRequestClient:
             "prompt": prompt,
         }, mode="request")
         return result
+    async def NodeRouteGenerator(self, generated_prompt: types.ProjectComponent,
+        baml_options: BamlCallOptions = {},
+    ) -> baml_py.baml_py.HTTPRequest:
+        result = await self.__options.merge_options(baml_options).create_http_request_async(function_name="NodeRouteGenerator", args={
+            "generated_prompt": generated_prompt,
+        }, mode="request")
+        return result
     async def PlanExpressServer(self, user_prompt: str,
         baml_options: BamlCallOptions = {},
     ) -> baml_py.baml_py.HTTPRequest:
@@ -177,6 +211,13 @@ class BamlHttpStreamRequestClient:
     ) -> baml_py.baml_py.HTTPRequest:
         result = await self.__options.merge_options(baml_options).create_http_request_async(function_name="GetFramework", args={
             "prompt": prompt,
+        }, mode="stream")
+        return result
+    async def NodeRouteGenerator(self, generated_prompt: types.ProjectComponent,
+        baml_options: BamlCallOptions = {},
+    ) -> baml_py.baml_py.HTTPRequest:
+        result = await self.__options.merge_options(baml_options).create_http_request_async(function_name="NodeRouteGenerator", args={
+            "generated_prompt": generated_prompt,
         }, mode="stream")
         return result
     async def PlanExpressServer(self, user_prompt: str,

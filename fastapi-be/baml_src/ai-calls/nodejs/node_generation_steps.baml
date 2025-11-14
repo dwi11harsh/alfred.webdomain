@@ -1,31 +1,3 @@
-enum ComponentType {
-    Route
-    Middleware
-    Utility
-    Configuration
-    Model
-    Service
-}
-
-class ProjectComponent {
-    type ComponentType
-    name string
-    description string
-    dependencies string[] @description("List of other components this depends on")
-    specific_instructions string @description("Step-by-step instructions for implementation")
-    expected_behavior string @description("Exactly what this component should do")
-    input_validation string @description("If applicable, validation rules for inputs, return empty string if its not needed")
-    error_handling string @description("How errors should be handled")
-    example_usage string @description("Example of how this would be used, return empty string if its not needed")
-}
-
-class ProjectStructure {
-    components ProjectComponent[]
-    entry_point string @description("Main file that ties everything together")
-    package_dependencies string[] @description("Only include dependencies mentioned in user prompt")
-    file_structure string[] @description("List of files that need to be created")
-    implementation_order string[] @description("Order in which components should be implemented")
-}
 
 function PlanExpressServer (user_prompt:string) -> ProjectStructure {
     client Gpt4omini
@@ -49,6 +21,8 @@ function PlanExpressServer (user_prompt:string) -> ProjectStructure {
         - Configuration: Specify exact settings and environment variables
         - Always include error handling specifications
         - Always include input validation requirements
+
+        The current file structure with code is\n```project/src/index.ts\n\nimport cors from "cors";\nimport "dotenv/config";\nimport express from "express";\n\nconst PORT = process.env.PORT || 3000;\n\nconst app = express();\n\napp.use(cors());\napp.use(express.json());\n\napp.get("/", (_, res) => {\nres.json({ hello: "world" }).status(200);\n});\n\napp.listen(PORT, () => console.log("🚀Server is running on port: ", PORT));\n```\n\n```project/.env\n\nPORT=3000\n```\n\n```project/package.json\n{\n"name": "project",\n"version": "1.0.0",\n"description": "",\n"main": "index.js",\n"scripts": {\n"test": "echo \\"Error: no test specified\\" && exit 1",\n"dev": "tsc -b && node dist/index.js"\n},\n"keywords": [],\n"author": "",\n"license": "ISC",\n"type": "module",\n"dependencies": {\n"cors": "^2.8.5",\n"dotenv": "^17.2.3",\n"express": "^5.1.0",\n"typescript": "^5.9.3"\n},\n"devDependencies": {\n"@types/cors": "^2.8.19",\n"@types/express": "^5.0.5",\n"@types/node": "^24.10.1"\n}\n}\n```\n\n```project/tsconfig.json\n{\n"compilerOptions": {\n"rootDir": "./src",\n"outDir": "./dist",\n"module": "nodenext",\n"target": "esnext",\n"types": ["node"],\n"sourceMap": true,\n"declaration": true,\n"declarationMap": true,\n"noUncheckedIndexedAccess": true,\n"exactOptionalPropertyTypes": true,\n"strict": true,\n"jsx": "react-jsx",\n"verbatimModuleSyntax": true,\n"isolatedModules": true,\n"noUncheckedSideEffectImports": true,\n"moduleDetection": "force",\n"skipLibCheck": true\n}\n}\n```\n\n```project/.gitignore\n.env\ndist/\nnode_modules/\n```
 
         {{_.role("user")}}
         Create an Express server with the following requirements:

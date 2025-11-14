@@ -23,11 +23,14 @@ class StreamState(BaseModel, typing.Generic[StreamStateValueT]):
     value: StreamStateValueT
     state: typing_extensions.Literal["Pending", "Incomplete", "Complete"]
 # #########################################################################
-# Generated classes (2)
+# Generated classes (3)
 # #########################################################################
 
 class ProjectComponent(BaseModel):
     type: typing.Optional[types.ComponentType] = None
+    command: typing.Optional[types.CommandType] = None
+    filePath: typing.Optional[str] = None
+    current_code: typing.Optional[str] = None
     name: typing.Optional[str] = None
     description: typing.Optional[str] = None
     dependencies: typing.List[str]
@@ -43,6 +46,12 @@ class ProjectStructure(BaseModel):
     package_dependencies: typing.List[str]
     file_structure: typing.List[str]
     implementation_order: typing.List[str]
+
+class RouteGeneratorOutput(BaseModel):
+    componentType: typing.Optional[types.ComponentType] = None
+    routeName: typing.Optional[str] = None
+    dependencies: typing.List[str]
+    final_code: typing.Optional[str] = None
 
 # #########################################################################
 # Generated type aliases (0)

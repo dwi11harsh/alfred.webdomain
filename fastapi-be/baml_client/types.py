@@ -37,8 +37,13 @@ def get_checks(checks: typing.Dict[CheckName, Check]) -> typing.List[Check]:
 def all_succeeded(checks: typing.Dict[CheckName, Check]) -> bool:
     return all(check.status == "succeeded" for check in get_checks(checks))
 # #########################################################################
-# Generated enums (2)
+# Generated enums (3)
 # #########################################################################
+
+class CommandType(str, Enum):
+    CreateFile = "CreateFile"
+    UpdateFile = "UpdateFile"
+    DeleteFile = "DeleteFile"
 
 class ComponentType(str, Enum):
     Route = "Route"
@@ -53,11 +58,14 @@ class Framework(str, Enum):
     Node = "Node"
 
 # #########################################################################
-# Generated classes (2)
+# Generated classes (3)
 # #########################################################################
 
 class ProjectComponent(BaseModel):
     type: ComponentType
+    command: CommandType
+    filePath: str
+    current_code: str
     name: str
     description: str
     dependencies: typing.List[str]
@@ -73,6 +81,12 @@ class ProjectStructure(BaseModel):
     package_dependencies: typing.List[str]
     file_structure: typing.List[str]
     implementation_order: typing.List[str]
+
+class RouteGeneratorOutput(BaseModel):
+    componentType: ComponentType
+    routeName: str
+    dependencies: typing.List[str]
+    final_code: str
 
 # #########################################################################
 # Generated type aliases (0)

@@ -22,6 +22,11 @@ type_map = {
     "types.ProjectStructure": types.ProjectStructure,
     "stream_types.ProjectStructure": stream_types.ProjectStructure,
 
+    "types.RouteGeneratorOutput": types.RouteGeneratorOutput,
+    "stream_types.RouteGeneratorOutput": stream_types.RouteGeneratorOutput,
+
+
+    "types.CommandType": types.CommandType,
 
     "types.ComponentType": types.ComponentType,
 
