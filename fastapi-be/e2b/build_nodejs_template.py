@@ -7,7 +7,7 @@ load_dotenv()
 e2b_api_key = os.getenv("E2B_API_KEY")
 
 if not e2b_api_key | e2b_api_key == "":
-    print("❗️E2B api key not found")
+    print("❗️ E2B api key not found")
 
 async def build_custom_nodejs_e2b_template():
     template_name = "webdomain-nodejs-starter"

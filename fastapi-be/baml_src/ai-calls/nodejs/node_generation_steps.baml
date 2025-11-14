@@ -26,7 +26,7 @@ function PlanExpressServer (user_prompt:string) -> ProjectStructure {
 
         {{_.role("user")}}
         Create an Express server with the following requirements:
-        {{user_prompt}}
+        {{user_prompt}}ˀ
 
         Please break this down into a structured plan that ensures consistent, production-ready output from smaller AI models.
 
