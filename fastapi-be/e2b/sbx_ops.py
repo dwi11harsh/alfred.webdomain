@@ -64,4 +64,6 @@ class E2BSandbox:
       print(f"🛑 error killing sandbox: {sandbox_id}")
       self.sbx = None
       self.sbx_info = None
+
+
   

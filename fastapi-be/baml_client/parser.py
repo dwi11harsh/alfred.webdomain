@@ -42,6 +42,12 @@ class LlmResponseParser:
         result = self.__options.merge_options(baml_options).parse_response(function_name="PlanExpressServer", llm_response=llm_response, mode="request")
         return typing.cast(types.ProjectStructure, result)
 
+    def PlanNextjsSteps(
+        self, llm_response: str, baml_options: BamlCallOptions = {},
+    ) -> types.ProjectStructure:
+        result = self.__options.merge_options(baml_options).parse_response(function_name="PlanNextjsSteps", llm_response=llm_response, mode="request")
+        return typing.cast(types.ProjectStructure, result)
+
     
 
 class LlmStreamParser:
@@ -66,6 +72,12 @@ class LlmStreamParser:
         self, llm_response: str, baml_options: BamlCallOptions = {},
     ) -> stream_types.ProjectStructure:
         result = self.__options.merge_options(baml_options).parse_response(function_name="PlanExpressServer", llm_response=llm_response, mode="stream")
+        return typing.cast(stream_types.ProjectStructure, result)
+
+    def PlanNextjsSteps(
+        self, llm_response: str, baml_options: BamlCallOptions = {},
+    ) -> stream_types.ProjectStructure:
+        result = self.__options.merge_options(baml_options).parse_response(function_name="PlanNextjsSteps", llm_response=llm_response, mode="stream")
         return typing.cast(stream_types.ProjectStructure, result)
 
     
