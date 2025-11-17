@@ -5,6 +5,9 @@ from dotenv import load_dotenv
 load_dotenv()
 
 def gpt_4o_small():
+    """
+        gpt ai model with max token limit of 1000
+    """
     api_key = os.getenv("OPENAI_API_KEY")
     
     if not api_key:
@@ -19,6 +22,9 @@ def gpt_4o_small():
 
 
 def gpt_4o_mid():
+    """
+        gpt ai model with max token limit of 5000
+    """
     api_key = os.getenv("OPENAI_API_KEY")
     
     if not api_key:
@@ -33,6 +39,9 @@ def gpt_4o_mid():
     )
 
 def gpt_4o_large():
+    """
+        gpt ai model with max token limit of 8000
+    """
     api_key = os.getenv("OPENAI_API_KEY")
     
     if not api_key:

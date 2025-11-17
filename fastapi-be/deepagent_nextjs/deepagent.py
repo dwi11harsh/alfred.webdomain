@@ -1,11 +1,9 @@
 from deepagents import create_deep_agent
-from pydantic.types import T
 from deepagent_nextjs.tavily_client import get_tavily_client
 from model.main import gpt_4o_mid, gpt_4o_large, gpt_4o_small
 from langchain_core.tools import tool
 from baml_client import b
 from baml_client.types import (NextjsProjectStructure)
-from tavily import TavilyClient
 
 research_instructions = """
 You are an expert researcher. Your job is to conduct thorough research, and then write a polished report.
@@ -52,6 +50,7 @@ class NextJSDeepagent():
         """
             breaks down prompts into guidelines for llm
         """
+        return b.PreprocessUserPrompt(self.user_prompt)
     
     @tool
     def search_web(self, query: str):
