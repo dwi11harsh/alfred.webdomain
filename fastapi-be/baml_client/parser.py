@@ -24,6 +24,12 @@ class LlmResponseParser:
     def __init__(self, options: DoNotUseDirectlyCallManager):
         self.__options = options
 
+    def CritiqueNextjsProjectStructure(
+        self, llm_response: str, baml_options: BamlCallOptions = {},
+    ) -> str:
+        result = self.__options.merge_options(baml_options).parse_response(function_name="CritiqueNextjsProjectStructure", llm_response=llm_response, mode="request")
+        return typing.cast(str, result)
+
     def GetFramework(
         self, llm_response: str, baml_options: BamlCallOptions = {},
     ) -> types.Framework:
@@ -38,15 +44,21 @@ class LlmResponseParser:
 
     def PlanExpressServer(
         self, llm_response: str, baml_options: BamlCallOptions = {},
-    ) -> types.ProjectStructure:
+    ) -> types.NodeProjectStructure:
         result = self.__options.merge_options(baml_options).parse_response(function_name="PlanExpressServer", llm_response=llm_response, mode="request")
-        return typing.cast(types.ProjectStructure, result)
+        return typing.cast(types.NodeProjectStructure, result)
 
     def PlanNextjsProjectGenerationSteps(
         self, llm_response: str, baml_options: BamlCallOptions = {},
-    ) -> typing.Union["types.ProjectStructure", str]:
+    ) -> types.NextjsProjectStructure:
         result = self.__options.merge_options(baml_options).parse_response(function_name="PlanNextjsProjectGenerationSteps", llm_response=llm_response, mode="request")
-        return typing.cast(typing.Union["types.ProjectStructure", str], result)
+        return typing.cast(types.NextjsProjectStructure, result)
+
+    def PreprocessUserPrompt(
+        self, llm_response: str, baml_options: BamlCallOptions = {},
+    ) -> str:
+        result = self.__options.merge_options(baml_options).parse_response(function_name="PreprocessUserPrompt", llm_response=llm_response, mode="request")
+        return typing.cast(str, result)
 
     
 
@@ -55,6 +67,12 @@ class LlmStreamParser:
 
     def __init__(self, options: DoNotUseDirectlyCallManager):
         self.__options = options
+
+    def CritiqueNextjsProjectStructure(
+        self, llm_response: str, baml_options: BamlCallOptions = {},
+    ) -> str:
+        result = self.__options.merge_options(baml_options).parse_response(function_name="CritiqueNextjsProjectStructure", llm_response=llm_response, mode="stream")
+        return typing.cast(str, result)
 
     def GetFramework(
         self, llm_response: str, baml_options: BamlCallOptions = {},
@@ -70,14 +88,20 @@ class LlmStreamParser:
 
     def PlanExpressServer(
         self, llm_response: str, baml_options: BamlCallOptions = {},
-    ) -> stream_types.ProjectStructure:
+    ) -> stream_types.NodeProjectStructure:
         result = self.__options.merge_options(baml_options).parse_response(function_name="PlanExpressServer", llm_response=llm_response, mode="stream")
-        return typing.cast(stream_types.ProjectStructure, result)
+        return typing.cast(stream_types.NodeProjectStructure, result)
 
     def PlanNextjsProjectGenerationSteps(
         self, llm_response: str, baml_options: BamlCallOptions = {},
-    ) -> typing.Union["stream_types.ProjectStructure", str]:
+    ) -> stream_types.NextjsProjectStructure:
         result = self.__options.merge_options(baml_options).parse_response(function_name="PlanNextjsProjectGenerationSteps", llm_response=llm_response, mode="stream")
-        return typing.cast(typing.Union["stream_types.ProjectStructure", str], result)
+        return typing.cast(stream_types.NextjsProjectStructure, result)
+
+    def PreprocessUserPrompt(
+        self, llm_response: str, baml_options: BamlCallOptions = {},
+    ) -> str:
+        result = self.__options.merge_options(baml_options).parse_response(function_name="PreprocessUserPrompt", llm_response=llm_response, mode="stream")
+        return typing.cast(str, result)
 
     

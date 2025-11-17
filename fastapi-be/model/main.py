@@ -1,0 +1,48 @@
+import os
+from langchain_openai import OpenAI
+from dotenv import load_dotenv
+
+load_dotenv()
+
+def gpt_4o_small():
+    api_key = os.getenv("OPENAI_API_KEY")
+    
+    if not api_key:
+        raise ValueError("OPENAI_API_KEY environment variable is not set")
+    
+    return OpenAI(
+        model="gpt-4o",
+        temperature=0.0,
+        max_tokens=1000,
+        api_key=api_key,
+    )
+
+
+def gpt_4o_mid():
+    api_key = os.getenv("OPENAI_API_KEY")
+    
+    if not api_key:
+        raise ValueError("OPENAI_API_KEY environment variable is not set")
+    
+    return OpenAI(
+        model="gpt-4o",
+        temperature=0.0,
+        max_tokens=5000,
+        api_key=api_key,
+        
+    )
+
+def gpt_4o_large():
+    api_key = os.getenv("OPENAI_API_KEY")
+    
+    if not api_key:
+        raise ValueError("OPENAI_API_KEY environment variable is not set")
+    
+    return OpenAI(
+        model="gpt-4o",
+        temperature=0.0,
+        max_tokens=8000,
+        api_key=api_key,
+        
+    )
+

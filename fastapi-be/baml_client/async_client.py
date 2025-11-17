@@ -79,6 +79,21 @@ class BamlAsyncClient:
     def parse_stream(self):
       return self.__llm_stream_parser
     
+    async def CritiqueNextjsProjectStructure(self, structure: types.NextjsProjectStructure,
+        baml_options: BamlCallOptions = {},
+    ) -> str:
+        # Check if on_tick is provided
+        if 'on_tick' in baml_options:
+            # Use streaming internally when on_tick is provided
+            stream = self.stream.CritiqueNextjsProjectStructure(structure=structure,
+                baml_options=baml_options)
+            return await stream.get_final_response()
+        else:
+            # Original non-streaming code
+            result = await self.__options.merge_options(baml_options).call_function_async(function_name="CritiqueNextjsProjectStructure", args={
+                "structure": structure,
+            })
+            return typing.cast(str, result.cast_to(types, types, stream_types, False, __runtime__))
     async def GetFramework(self, prompt: str,
         baml_options: BamlCallOptions = {},
     ) -> types.Framework:
@@ -111,7 +126,7 @@ class BamlAsyncClient:
             return typing.cast(types.NodeJSRouteGeneratorOutput, result.cast_to(types, types, stream_types, False, __runtime__))
     async def PlanExpressServer(self, user_prompt: str,
         baml_options: BamlCallOptions = {},
-    ) -> types.ProjectStructure:
+    ) -> types.NodeProjectStructure:
         # Check if on_tick is provided
         if 'on_tick' in baml_options:
             # Use streaming internally when on_tick is provided
@@ -123,10 +138,10 @@ class BamlAsyncClient:
             result = await self.__options.merge_options(baml_options).call_function_async(function_name="PlanExpressServer", args={
                 "user_prompt": user_prompt,
             })
-            return typing.cast(types.ProjectStructure, result.cast_to(types, types, stream_types, False, __runtime__))
+            return typing.cast(types.NodeProjectStructure, result.cast_to(types, types, stream_types, False, __runtime__))
     async def PlanNextjsProjectGenerationSteps(self, user_prompt: str,
         baml_options: BamlCallOptions = {},
-    ) -> typing.Union["types.ProjectStructure", str]:
+    ) -> types.NextjsProjectStructure:
         # Check if on_tick is provided
         if 'on_tick' in baml_options:
             # Use streaming internally when on_tick is provided
@@ -138,7 +153,22 @@ class BamlAsyncClient:
             result = await self.__options.merge_options(baml_options).call_function_async(function_name="PlanNextjsProjectGenerationSteps", args={
                 "user_prompt": user_prompt,
             })
-            return typing.cast(typing.Union["types.ProjectStructure", str], result.cast_to(types, types, stream_types, False, __runtime__))
+            return typing.cast(types.NextjsProjectStructure, result.cast_to(types, types, stream_types, False, __runtime__))
+    async def PreprocessUserPrompt(self, user_prompt: str,
+        baml_options: BamlCallOptions = {},
+    ) -> str:
+        # Check if on_tick is provided
+        if 'on_tick' in baml_options:
+            # Use streaming internally when on_tick is provided
+            stream = self.stream.PreprocessUserPrompt(user_prompt=user_prompt,
+                baml_options=baml_options)
+            return await stream.get_final_response()
+        else:
+            # Original non-streaming code
+            result = await self.__options.merge_options(baml_options).call_function_async(function_name="PreprocessUserPrompt", args={
+                "user_prompt": user_prompt,
+            })
+            return typing.cast(str, result.cast_to(types, types, stream_types, False, __runtime__))
     
 
 
@@ -148,6 +178,18 @@ class BamlStreamClient:
     def __init__(self, options: DoNotUseDirectlyCallManager):
         self.__options = options
 
+    def CritiqueNextjsProjectStructure(self, structure: types.NextjsProjectStructure,
+        baml_options: BamlCallOptions = {},
+    ) -> baml_py.BamlStream[str, str]:
+        ctx, result = self.__options.merge_options(baml_options).create_async_stream(function_name="CritiqueNextjsProjectStructure", args={
+            "structure": structure,
+        })
+        return baml_py.BamlStream[str, str](
+          result,
+          lambda x: typing.cast(str, x.cast_to(types, types, stream_types, True, __runtime__)),
+          lambda x: typing.cast(str, x.cast_to(types, types, stream_types, False, __runtime__)),
+          ctx,
+        )
     def GetFramework(self, prompt: str,
         baml_options: BamlCallOptions = {},
     ) -> baml_py.BamlStream[types.Framework, types.Framework]:
@@ -174,26 +216,38 @@ class BamlStreamClient:
         )
     def PlanExpressServer(self, user_prompt: str,
         baml_options: BamlCallOptions = {},
-    ) -> baml_py.BamlStream[stream_types.ProjectStructure, types.ProjectStructure]:
+    ) -> baml_py.BamlStream[stream_types.NodeProjectStructure, types.NodeProjectStructure]:
         ctx, result = self.__options.merge_options(baml_options).create_async_stream(function_name="PlanExpressServer", args={
             "user_prompt": user_prompt,
         })
-        return baml_py.BamlStream[stream_types.ProjectStructure, types.ProjectStructure](
+        return baml_py.BamlStream[stream_types.NodeProjectStructure, types.NodeProjectStructure](
           result,
-          lambda x: typing.cast(stream_types.ProjectStructure, x.cast_to(types, types, stream_types, True, __runtime__)),
-          lambda x: typing.cast(types.ProjectStructure, x.cast_to(types, types, stream_types, False, __runtime__)),
+          lambda x: typing.cast(stream_types.NodeProjectStructure, x.cast_to(types, types, stream_types, True, __runtime__)),
+          lambda x: typing.cast(types.NodeProjectStructure, x.cast_to(types, types, stream_types, False, __runtime__)),
           ctx,
         )
     def PlanNextjsProjectGenerationSteps(self, user_prompt: str,
         baml_options: BamlCallOptions = {},
-    ) -> baml_py.BamlStream[typing.Union["stream_types.ProjectStructure", str], typing.Union["types.ProjectStructure", str]]:
+    ) -> baml_py.BamlStream[stream_types.NextjsProjectStructure, types.NextjsProjectStructure]:
         ctx, result = self.__options.merge_options(baml_options).create_async_stream(function_name="PlanNextjsProjectGenerationSteps", args={
             "user_prompt": user_prompt,
         })
-        return baml_py.BamlStream[typing.Union["stream_types.ProjectStructure", str], typing.Union["types.ProjectStructure", str]](
+        return baml_py.BamlStream[stream_types.NextjsProjectStructure, types.NextjsProjectStructure](
           result,
-          lambda x: typing.cast(typing.Union["stream_types.ProjectStructure", str], x.cast_to(types, types, stream_types, True, __runtime__)),
-          lambda x: typing.cast(typing.Union["types.ProjectStructure", str], x.cast_to(types, types, stream_types, False, __runtime__)),
+          lambda x: typing.cast(stream_types.NextjsProjectStructure, x.cast_to(types, types, stream_types, True, __runtime__)),
+          lambda x: typing.cast(types.NextjsProjectStructure, x.cast_to(types, types, stream_types, False, __runtime__)),
+          ctx,
+        )
+    def PreprocessUserPrompt(self, user_prompt: str,
+        baml_options: BamlCallOptions = {},
+    ) -> baml_py.BamlStream[str, str]:
+        ctx, result = self.__options.merge_options(baml_options).create_async_stream(function_name="PreprocessUserPrompt", args={
+            "user_prompt": user_prompt,
+        })
+        return baml_py.BamlStream[str, str](
+          result,
+          lambda x: typing.cast(str, x.cast_to(types, types, stream_types, True, __runtime__)),
+          lambda x: typing.cast(str, x.cast_to(types, types, stream_types, False, __runtime__)),
           ctx,
         )
     
@@ -204,6 +258,13 @@ class BamlHttpRequestClient:
     def __init__(self, options: DoNotUseDirectlyCallManager):
         self.__options = options
 
+    async def CritiqueNextjsProjectStructure(self, structure: types.NextjsProjectStructure,
+        baml_options: BamlCallOptions = {},
+    ) -> baml_py.baml_py.HTTPRequest:
+        result = await self.__options.merge_options(baml_options).create_http_request_async(function_name="CritiqueNextjsProjectStructure", args={
+            "structure": structure,
+        }, mode="request")
+        return result
     async def GetFramework(self, prompt: str,
         baml_options: BamlCallOptions = {},
     ) -> baml_py.baml_py.HTTPRequest:
@@ -229,6 +290,13 @@ class BamlHttpRequestClient:
         baml_options: BamlCallOptions = {},
     ) -> baml_py.baml_py.HTTPRequest:
         result = await self.__options.merge_options(baml_options).create_http_request_async(function_name="PlanNextjsProjectGenerationSteps", args={
+            "user_prompt": user_prompt,
+        }, mode="request")
+        return result
+    async def PreprocessUserPrompt(self, user_prompt: str,
+        baml_options: BamlCallOptions = {},
+    ) -> baml_py.baml_py.HTTPRequest:
+        result = await self.__options.merge_options(baml_options).create_http_request_async(function_name="PreprocessUserPrompt", args={
             "user_prompt": user_prompt,
         }, mode="request")
         return result
@@ -240,6 +308,13 @@ class BamlHttpStreamRequestClient:
     def __init__(self, options: DoNotUseDirectlyCallManager):
         self.__options = options
 
+    async def CritiqueNextjsProjectStructure(self, structure: types.NextjsProjectStructure,
+        baml_options: BamlCallOptions = {},
+    ) -> baml_py.baml_py.HTTPRequest:
+        result = await self.__options.merge_options(baml_options).create_http_request_async(function_name="CritiqueNextjsProjectStructure", args={
+            "structure": structure,
+        }, mode="stream")
+        return result
     async def GetFramework(self, prompt: str,
         baml_options: BamlCallOptions = {},
     ) -> baml_py.baml_py.HTTPRequest:
@@ -265,6 +340,13 @@ class BamlHttpStreamRequestClient:
         baml_options: BamlCallOptions = {},
     ) -> baml_py.baml_py.HTTPRequest:
         result = await self.__options.merge_options(baml_options).create_http_request_async(function_name="PlanNextjsProjectGenerationSteps", args={
+            "user_prompt": user_prompt,
+        }, mode="stream")
+        return result
+    async def PreprocessUserPrompt(self, user_prompt: str,
+        baml_options: BamlCallOptions = {},
+    ) -> baml_py.baml_py.HTTPRequest:
+        result = await self.__options.merge_options(baml_options).create_http_request_async(function_name="PreprocessUserPrompt", args={
             "user_prompt": user_prompt,
         }, mode="stream")
         return result

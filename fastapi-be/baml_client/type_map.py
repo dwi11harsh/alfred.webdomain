@@ -19,14 +19,17 @@ type_map = {
     "types.NextJSProjectComponent": types.NextJSProjectComponent,
     "stream_types.NextJSProjectComponent": stream_types.NextJSProjectComponent,
 
+    "types.NextjsProjectStructure": types.NextjsProjectStructure,
+    "stream_types.NextjsProjectStructure": stream_types.NextjsProjectStructure,
+
     "types.NodeJSProjectComponent": types.NodeJSProjectComponent,
     "stream_types.NodeJSProjectComponent": stream_types.NodeJSProjectComponent,
 
     "types.NodeJSRouteGeneratorOutput": types.NodeJSRouteGeneratorOutput,
     "stream_types.NodeJSRouteGeneratorOutput": stream_types.NodeJSRouteGeneratorOutput,
 
-    "types.ProjectStructure": types.ProjectStructure,
-    "stream_types.ProjectStructure": stream_types.ProjectStructure,
+    "types.NodeProjectStructure": types.NodeProjectStructure,
+    "stream_types.NodeProjectStructure": stream_types.NodeProjectStructure,
 
 
     "types.AnalyticsProvider": types.AnalyticsProvider,

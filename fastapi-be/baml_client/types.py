@@ -77,7 +77,7 @@ class TestType(str, Enum):
     E2e = "E2e"
 
 # #########################################################################
-# Generated classes (4)
+# Generated classes (5)
 # #########################################################################
 
 class NextJSProjectComponent(BaseModel):
@@ -91,6 +91,11 @@ class NextJSProjectComponent(BaseModel):
     design_guidelines: str
     test_requirements: typing.List[TestType]
     analytics_events: typing.List[str]
+
+class NextjsProjectStructure(BaseModel):
+    components: typing.List["NextJSProjectComponent"]
+    color_palette: str
+    package_dependencies: typing.List[str]
 
 class NodeJSProjectComponent(BaseModel):
     type: ComponentType
@@ -112,9 +117,8 @@ class NodeJSRouteGeneratorOutput(BaseModel):
     dependencies: typing.List[str]
     final_code: str
 
-class ProjectStructure(BaseModel):
+class NodeProjectStructure(BaseModel):
     components: typing.List["NextJSProjectComponent"]
-    color_palette: str
     package_dependencies: typing.List[str]
 
 # #########################################################################

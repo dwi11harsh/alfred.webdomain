@@ -1,5 +1,5 @@
 
-function PlanExpressServer (user_prompt:string) -> ProjectStructure {
+function PlanExpressServer (user_prompt:string) -> NodeProjectStructure {
     client Gpt4omini
     
     prompt #"

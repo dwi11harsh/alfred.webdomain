@@ -20,7 +20,7 @@ from .globals import DO_NOT_USE_DIRECTLY_UNLESS_YOU_KNOW_WHAT_YOURE_DOING_RUNTIM
 class TypeBuilder(type_builder.TypeBuilder):
     def __init__(self):
         super().__init__(classes=set(
-          ["NextJSProjectComponent","NodeJSProjectComponent","NodeJSRouteGeneratorOutput","ProjectStructure",]
+          ["NextJSProjectComponent","NextjsProjectStructure","NodeJSProjectComponent","NodeJSRouteGeneratorOutput","NodeProjectStructure",]
         ), enums=set(
           ["AnalyticsProvider","CommandType","ComponentType","DesignSystem","Framework","TestType",]
         ), runtime=DO_NOT_USE_DIRECTLY_UNLESS_YOU_KNOW_WHAT_YOURE_DOING_RUNTIME)
@@ -55,12 +55,16 @@ class TypeBuilder(type_builder.TypeBuilder):
 
 
     # #########################################################################
-    # Generated classes 4
+    # Generated classes 5
     # #########################################################################
 
     @property
     def NextJSProjectComponent(self) -> "NextJSProjectComponentViewer":
         return NextJSProjectComponentViewer(self)
+
+    @property
+    def NextjsProjectStructure(self) -> "NextjsProjectStructureViewer":
+        return NextjsProjectStructureViewer(self)
 
     @property
     def NodeJSProjectComponent(self) -> "NodeJSProjectComponentViewer":
@@ -71,8 +75,8 @@ class TypeBuilder(type_builder.TypeBuilder):
         return NodeJSRouteGeneratorOutputViewer(self)
 
     @property
-    def ProjectStructure(self) -> "ProjectStructureViewer":
-        return ProjectStructureViewer(self)
+    def NodeProjectStructure(self) -> "NodeProjectStructureViewer":
+        return NodeProjectStructureViewer(self)
 
 
 
@@ -382,7 +386,7 @@ class TestTypeValues:
 
 
 # #########################################################################
-# Generated classes 4
+# Generated classes 5
 # #########################################################################
 
 class NextJSProjectComponentAst:
@@ -456,6 +460,53 @@ class NextJSProjectComponentProperties:
     @property
     def analytics_events(self) -> type_builder.ClassPropertyViewer:
         return type_builder.ClassPropertyViewer(self.__bldr.property("analytics_events"))
+    
+    
+
+
+class NextjsProjectStructureAst:
+    def __init__(self, tb: type_builder.TypeBuilder):
+        _tb = tb._tb # type: ignore (we know how to use this private attribute)
+        self._bldr = _tb.class_("NextjsProjectStructure")
+        self._properties: typing.Set[str] = set([  "components",  "color_palette",  "package_dependencies",  ])
+        self._props = NextjsProjectStructureProperties(self._bldr, self._properties)
+
+    def type(self) -> baml_py.FieldType:
+        return self._bldr.field()
+
+    @property
+    def props(self) -> "NextjsProjectStructureProperties":
+        return self._props
+
+
+class NextjsProjectStructureViewer(NextjsProjectStructureAst):
+    def __init__(self, tb: type_builder.TypeBuilder):
+        super().__init__(tb)
+
+    
+    def list_properties(self) -> typing.List[typing.Tuple[str, type_builder.ClassPropertyViewer]]:
+        return [(name, type_builder.ClassPropertyViewer(self._bldr.property(name))) for name in self._properties]
+    
+
+
+class NextjsProjectStructureProperties:
+    def __init__(self, bldr: baml_py.ClassBuilder, properties: typing.Set[str]):
+        self.__bldr = bldr
+        self.__properties = properties # type: ignore (we know how to use this private attribute) # noqa: F821
+
+    
+    
+    @property
+    def components(self) -> type_builder.ClassPropertyViewer:
+        return type_builder.ClassPropertyViewer(self.__bldr.property("components"))
+    
+    @property
+    def color_palette(self) -> type_builder.ClassPropertyViewer:
+        return type_builder.ClassPropertyViewer(self.__bldr.property("color_palette"))
+    
+    @property
+    def package_dependencies(self) -> type_builder.ClassPropertyViewer:
+        return type_builder.ClassPropertyViewer(self.__bldr.property("package_dependencies"))
     
     
 
@@ -594,22 +645,22 @@ class NodeJSRouteGeneratorOutputProperties:
     
 
 
-class ProjectStructureAst:
+class NodeProjectStructureAst:
     def __init__(self, tb: type_builder.TypeBuilder):
         _tb = tb._tb # type: ignore (we know how to use this private attribute)
-        self._bldr = _tb.class_("ProjectStructure")
-        self._properties: typing.Set[str] = set([  "components",  "color_palette",  "package_dependencies",  ])
-        self._props = ProjectStructureProperties(self._bldr, self._properties)
+        self._bldr = _tb.class_("NodeProjectStructure")
+        self._properties: typing.Set[str] = set([  "components",  "package_dependencies",  ])
+        self._props = NodeProjectStructureProperties(self._bldr, self._properties)
 
     def type(self) -> baml_py.FieldType:
         return self._bldr.field()
 
     @property
-    def props(self) -> "ProjectStructureProperties":
+    def props(self) -> "NodeProjectStructureProperties":
         return self._props
 
 
-class ProjectStructureViewer(ProjectStructureAst):
+class NodeProjectStructureViewer(NodeProjectStructureAst):
     def __init__(self, tb: type_builder.TypeBuilder):
         super().__init__(tb)
 
@@ -619,7 +670,7 @@ class ProjectStructureViewer(ProjectStructureAst):
     
 
 
-class ProjectStructureProperties:
+class NodeProjectStructureProperties:
     def __init__(self, bldr: baml_py.ClassBuilder, properties: typing.Set[str]):
         self.__bldr = bldr
         self.__properties = properties # type: ignore (we know how to use this private attribute) # noqa: F821
@@ -629,10 +680,6 @@ class ProjectStructureProperties:
     @property
     def components(self) -> type_builder.ClassPropertyViewer:
         return type_builder.ClassPropertyViewer(self.__bldr.property("components"))
-    
-    @property
-    def color_palette(self) -> type_builder.ClassPropertyViewer:
-        return type_builder.ClassPropertyViewer(self.__bldr.property("color_palette"))
     
     @property
     def package_dependencies(self) -> type_builder.ClassPropertyViewer:

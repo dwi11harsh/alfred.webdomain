@@ -49,9 +49,14 @@ class NextJSProjectComponent {
     analytics_events string[] @description("Analytics events to track for this component (e.g., ['button_clicked', 'form_submitted']). Prefer not to have this until explicitly asked for, Return empty array if not applicable.")
 }
 
-class ProjectStructure {
+class NextjsProjectStructure {
     components NextJSProjectComponent[]
     color_palette string @description("color palette/theme for this project")
+    package_dependencies string[] @description("Only include dependencies mentioned in user prompt or required by feature templates")
+}
+
+class NodeProjectStructure {
+    components NextJSProjectComponent[]
     package_dependencies string[] @description("Only include dependencies mentioned in user prompt or required by feature templates")
 }
 

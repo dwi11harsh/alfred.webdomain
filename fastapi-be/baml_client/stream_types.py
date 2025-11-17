@@ -23,7 +23,7 @@ class StreamState(BaseModel, typing.Generic[StreamStateValueT]):
     value: StreamStateValueT
     state: typing_extensions.Literal["Pending", "Incomplete", "Complete"]
 # #########################################################################
-# Generated classes (4)
+# Generated classes (5)
 # #########################################################################
 
 class NextJSProjectComponent(BaseModel):
@@ -37,6 +37,11 @@ class NextJSProjectComponent(BaseModel):
     design_guidelines: typing.Optional[str] = None
     test_requirements: typing.List[types.TestType]
     analytics_events: typing.List[str]
+
+class NextjsProjectStructure(BaseModel):
+    components: typing.List["NextJSProjectComponent"]
+    color_palette: typing.Optional[str] = None
+    package_dependencies: typing.List[str]
 
 class NodeJSProjectComponent(BaseModel):
     type: typing.Optional[types.ComponentType] = None
@@ -58,9 +63,8 @@ class NodeJSRouteGeneratorOutput(BaseModel):
     dependencies: typing.List[str]
     final_code: typing.Optional[str] = None
 
-class ProjectStructure(BaseModel):
+class NodeProjectStructure(BaseModel):
     components: typing.List["NextJSProjectComponent"]
-    color_palette: typing.Optional[str] = None
     package_dependencies: typing.List[str]
 
 # #########################################################################
