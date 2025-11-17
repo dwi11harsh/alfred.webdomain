@@ -3,7 +3,7 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 from dotenv import load_dotenv
 from baml_client import b
-from baml_client.types import ProjectStructure, RouteGeneratorOutput
+from baml_client.types import NodeJSRouteGeneratorOutput, ProjectStructure
 from e2b_code_interpreter import Sandbox
 
 load_dotenv()
@@ -14,7 +14,7 @@ class PromptRequest(BaseModel):
     prompt: str
 
 class ComponentRequest(BaseModel):
-    prompt_steps: ProjectStructure
+    prompt_steps: NodeJSRouteGeneratorOutput
 
 @app.get("/")
 async def root():
@@ -44,7 +44,7 @@ async def GenerateNodejsComponents (request: ComponentRequest):
     codes = []
 
     for entry in req_arr.components:
-        res: RouteGeneratorOutput = await b.NodeRouteGenerator(entry)
+        res: ProjectStructure = await b.NodeRouteGenerator(entry)
         codes.append(res)
     
     return {"codes": codes}
@@ -61,3 +61,7 @@ async def CreateE2bContainer ():
     sbx.kill()
     await sbx.kill()
     return {"all":"good"}
+
+@app.post("/next-js-app")
+async def NextJSApp():
+    print("initializing deepagent")

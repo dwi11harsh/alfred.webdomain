@@ -94,9 +94,9 @@ class BamlAsyncClient:
                 "prompt": prompt,
             })
             return typing.cast(types.Framework, result.cast_to(types, types, stream_types, False, __runtime__))
-    async def NodeRouteGenerator(self, generated_prompt: types.ProjectComponent,
+    async def NodeRouteGenerator(self, generated_prompt: types.NodeJSProjectComponent,
         baml_options: BamlCallOptions = {},
-    ) -> types.RouteGeneratorOutput:
+    ) -> types.NodeJSRouteGeneratorOutput:
         # Check if on_tick is provided
         if 'on_tick' in baml_options:
             # Use streaming internally when on_tick is provided
@@ -108,7 +108,7 @@ class BamlAsyncClient:
             result = await self.__options.merge_options(baml_options).call_function_async(function_name="NodeRouteGenerator", args={
                 "generated_prompt": generated_prompt,
             })
-            return typing.cast(types.RouteGeneratorOutput, result.cast_to(types, types, stream_types, False, __runtime__))
+            return typing.cast(types.NodeJSRouteGeneratorOutput, result.cast_to(types, types, stream_types, False, __runtime__))
     async def PlanExpressServer(self, user_prompt: str,
         baml_options: BamlCallOptions = {},
     ) -> types.ProjectStructure:
@@ -124,21 +124,21 @@ class BamlAsyncClient:
                 "user_prompt": user_prompt,
             })
             return typing.cast(types.ProjectStructure, result.cast_to(types, types, stream_types, False, __runtime__))
-    async def PlanNextjsSteps(self, user_prompt: str,
+    async def PlanNextjsProjectGenerationSteps(self, user_prompt: str,
         baml_options: BamlCallOptions = {},
-    ) -> types.ProjectStructure:
+    ) -> typing.Union["types.ProjectStructure", str]:
         # Check if on_tick is provided
         if 'on_tick' in baml_options:
             # Use streaming internally when on_tick is provided
-            stream = self.stream.PlanNextjsSteps(user_prompt=user_prompt,
+            stream = self.stream.PlanNextjsProjectGenerationSteps(user_prompt=user_prompt,
                 baml_options=baml_options)
             return await stream.get_final_response()
         else:
             # Original non-streaming code
-            result = await self.__options.merge_options(baml_options).call_function_async(function_name="PlanNextjsSteps", args={
+            result = await self.__options.merge_options(baml_options).call_function_async(function_name="PlanNextjsProjectGenerationSteps", args={
                 "user_prompt": user_prompt,
             })
-            return typing.cast(types.ProjectStructure, result.cast_to(types, types, stream_types, False, __runtime__))
+            return typing.cast(typing.Union["types.ProjectStructure", str], result.cast_to(types, types, stream_types, False, __runtime__))
     
 
 
@@ -160,16 +160,16 @@ class BamlStreamClient:
           lambda x: typing.cast(types.Framework, x.cast_to(types, types, stream_types, False, __runtime__)),
           ctx,
         )
-    def NodeRouteGenerator(self, generated_prompt: types.ProjectComponent,
+    def NodeRouteGenerator(self, generated_prompt: types.NodeJSProjectComponent,
         baml_options: BamlCallOptions = {},
-    ) -> baml_py.BamlStream[stream_types.RouteGeneratorOutput, types.RouteGeneratorOutput]:
+    ) -> baml_py.BamlStream[stream_types.NodeJSRouteGeneratorOutput, types.NodeJSRouteGeneratorOutput]:
         ctx, result = self.__options.merge_options(baml_options).create_async_stream(function_name="NodeRouteGenerator", args={
             "generated_prompt": generated_prompt,
         })
-        return baml_py.BamlStream[stream_types.RouteGeneratorOutput, types.RouteGeneratorOutput](
+        return baml_py.BamlStream[stream_types.NodeJSRouteGeneratorOutput, types.NodeJSRouteGeneratorOutput](
           result,
-          lambda x: typing.cast(stream_types.RouteGeneratorOutput, x.cast_to(types, types, stream_types, True, __runtime__)),
-          lambda x: typing.cast(types.RouteGeneratorOutput, x.cast_to(types, types, stream_types, False, __runtime__)),
+          lambda x: typing.cast(stream_types.NodeJSRouteGeneratorOutput, x.cast_to(types, types, stream_types, True, __runtime__)),
+          lambda x: typing.cast(types.NodeJSRouteGeneratorOutput, x.cast_to(types, types, stream_types, False, __runtime__)),
           ctx,
         )
     def PlanExpressServer(self, user_prompt: str,
@@ -184,16 +184,16 @@ class BamlStreamClient:
           lambda x: typing.cast(types.ProjectStructure, x.cast_to(types, types, stream_types, False, __runtime__)),
           ctx,
         )
-    def PlanNextjsSteps(self, user_prompt: str,
+    def PlanNextjsProjectGenerationSteps(self, user_prompt: str,
         baml_options: BamlCallOptions = {},
-    ) -> baml_py.BamlStream[stream_types.ProjectStructure, types.ProjectStructure]:
-        ctx, result = self.__options.merge_options(baml_options).create_async_stream(function_name="PlanNextjsSteps", args={
+    ) -> baml_py.BamlStream[typing.Union["stream_types.ProjectStructure", str], typing.Union["types.ProjectStructure", str]]:
+        ctx, result = self.__options.merge_options(baml_options).create_async_stream(function_name="PlanNextjsProjectGenerationSteps", args={
             "user_prompt": user_prompt,
         })
-        return baml_py.BamlStream[stream_types.ProjectStructure, types.ProjectStructure](
+        return baml_py.BamlStream[typing.Union["stream_types.ProjectStructure", str], typing.Union["types.ProjectStructure", str]](
           result,
-          lambda x: typing.cast(stream_types.ProjectStructure, x.cast_to(types, types, stream_types, True, __runtime__)),
-          lambda x: typing.cast(types.ProjectStructure, x.cast_to(types, types, stream_types, False, __runtime__)),
+          lambda x: typing.cast(typing.Union["stream_types.ProjectStructure", str], x.cast_to(types, types, stream_types, True, __runtime__)),
+          lambda x: typing.cast(typing.Union["types.ProjectStructure", str], x.cast_to(types, types, stream_types, False, __runtime__)),
           ctx,
         )
     
@@ -211,7 +211,7 @@ class BamlHttpRequestClient:
             "prompt": prompt,
         }, mode="request")
         return result
-    async def NodeRouteGenerator(self, generated_prompt: types.ProjectComponent,
+    async def NodeRouteGenerator(self, generated_prompt: types.NodeJSProjectComponent,
         baml_options: BamlCallOptions = {},
     ) -> baml_py.baml_py.HTTPRequest:
         result = await self.__options.merge_options(baml_options).create_http_request_async(function_name="NodeRouteGenerator", args={
@@ -225,10 +225,10 @@ class BamlHttpRequestClient:
             "user_prompt": user_prompt,
         }, mode="request")
         return result
-    async def PlanNextjsSteps(self, user_prompt: str,
+    async def PlanNextjsProjectGenerationSteps(self, user_prompt: str,
         baml_options: BamlCallOptions = {},
     ) -> baml_py.baml_py.HTTPRequest:
-        result = await self.__options.merge_options(baml_options).create_http_request_async(function_name="PlanNextjsSteps", args={
+        result = await self.__options.merge_options(baml_options).create_http_request_async(function_name="PlanNextjsProjectGenerationSteps", args={
             "user_prompt": user_prompt,
         }, mode="request")
         return result
@@ -247,7 +247,7 @@ class BamlHttpStreamRequestClient:
             "prompt": prompt,
         }, mode="stream")
         return result
-    async def NodeRouteGenerator(self, generated_prompt: types.ProjectComponent,
+    async def NodeRouteGenerator(self, generated_prompt: types.NodeJSProjectComponent,
         baml_options: BamlCallOptions = {},
     ) -> baml_py.baml_py.HTTPRequest:
         result = await self.__options.merge_options(baml_options).create_http_request_async(function_name="NodeRouteGenerator", args={
@@ -261,10 +261,10 @@ class BamlHttpStreamRequestClient:
             "user_prompt": user_prompt,
         }, mode="stream")
         return result
-    async def PlanNextjsSteps(self, user_prompt: str,
+    async def PlanNextjsProjectGenerationSteps(self, user_prompt: str,
         baml_options: BamlCallOptions = {},
     ) -> baml_py.baml_py.HTTPRequest:
-        result = await self.__options.merge_options(baml_options).create_http_request_async(function_name="PlanNextjsSteps", args={
+        result = await self.__options.merge_options(baml_options).create_http_request_async(function_name="PlanNextjsProjectGenerationSteps", args={
             "user_prompt": user_prompt,
         }, mode="stream")
         return result

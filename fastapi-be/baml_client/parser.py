@@ -32,9 +32,9 @@ class LlmResponseParser:
 
     def NodeRouteGenerator(
         self, llm_response: str, baml_options: BamlCallOptions = {},
-    ) -> types.RouteGeneratorOutput:
+    ) -> types.NodeJSRouteGeneratorOutput:
         result = self.__options.merge_options(baml_options).parse_response(function_name="NodeRouteGenerator", llm_response=llm_response, mode="request")
-        return typing.cast(types.RouteGeneratorOutput, result)
+        return typing.cast(types.NodeJSRouteGeneratorOutput, result)
 
     def PlanExpressServer(
         self, llm_response: str, baml_options: BamlCallOptions = {},
@@ -42,11 +42,11 @@ class LlmResponseParser:
         result = self.__options.merge_options(baml_options).parse_response(function_name="PlanExpressServer", llm_response=llm_response, mode="request")
         return typing.cast(types.ProjectStructure, result)
 
-    def PlanNextjsSteps(
+    def PlanNextjsProjectGenerationSteps(
         self, llm_response: str, baml_options: BamlCallOptions = {},
-    ) -> types.ProjectStructure:
-        result = self.__options.merge_options(baml_options).parse_response(function_name="PlanNextjsSteps", llm_response=llm_response, mode="request")
-        return typing.cast(types.ProjectStructure, result)
+    ) -> typing.Union["types.ProjectStructure", str]:
+        result = self.__options.merge_options(baml_options).parse_response(function_name="PlanNextjsProjectGenerationSteps", llm_response=llm_response, mode="request")
+        return typing.cast(typing.Union["types.ProjectStructure", str], result)
 
     
 
@@ -64,9 +64,9 @@ class LlmStreamParser:
 
     def NodeRouteGenerator(
         self, llm_response: str, baml_options: BamlCallOptions = {},
-    ) -> stream_types.RouteGeneratorOutput:
+    ) -> stream_types.NodeJSRouteGeneratorOutput:
         result = self.__options.merge_options(baml_options).parse_response(function_name="NodeRouteGenerator", llm_response=llm_response, mode="stream")
-        return typing.cast(stream_types.RouteGeneratorOutput, result)
+        return typing.cast(stream_types.NodeJSRouteGeneratorOutput, result)
 
     def PlanExpressServer(
         self, llm_response: str, baml_options: BamlCallOptions = {},
@@ -74,10 +74,10 @@ class LlmStreamParser:
         result = self.__options.merge_options(baml_options).parse_response(function_name="PlanExpressServer", llm_response=llm_response, mode="stream")
         return typing.cast(stream_types.ProjectStructure, result)
 
-    def PlanNextjsSteps(
+    def PlanNextjsProjectGenerationSteps(
         self, llm_response: str, baml_options: BamlCallOptions = {},
-    ) -> stream_types.ProjectStructure:
-        result = self.__options.merge_options(baml_options).parse_response(function_name="PlanNextjsSteps", llm_response=llm_response, mode="stream")
-        return typing.cast(stream_types.ProjectStructure, result)
+    ) -> typing.Union["stream_types.ProjectStructure", str]:
+        result = self.__options.merge_options(baml_options).parse_response(function_name="PlanNextjsProjectGenerationSteps", llm_response=llm_response, mode="stream")
+        return typing.cast(typing.Union["stream_types.ProjectStructure", str], result)
 
     

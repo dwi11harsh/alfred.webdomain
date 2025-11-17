@@ -38,3 +38,12 @@ client<llm> Gpt5 {
     base_url env.OPENAI_API_BASE
   }
 }
+
+client<llm> Gpt4o {
+  provider openai
+  options {
+    model "gpt-4o"
+    api_key env.OPENAI_API_KEY
+    base_url env.OPENAI_API_BASE
+  }
+}

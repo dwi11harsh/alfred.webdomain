@@ -23,10 +23,22 @@ class StreamState(BaseModel, typing.Generic[StreamStateValueT]):
     value: StreamStateValueT
     state: typing_extensions.Literal["Pending", "Incomplete", "Complete"]
 # #########################################################################
-# Generated classes (3)
+# Generated classes (4)
 # #########################################################################
 
-class ProjectComponent(BaseModel):
+class NextJSProjectComponent(BaseModel):
+    type: typing.Optional[types.ComponentType] = None
+    command: typing.Optional[types.CommandType] = None
+    filePath: typing.Optional[str] = None
+    dependencies: typing.List[str]
+    specific_instructions: typing.List[str]
+    input_validation: typing.Optional[str] = None
+    error_handling: typing.Optional[str] = None
+    design_guidelines: typing.Optional[str] = None
+    test_requirements: typing.List[types.TestType]
+    analytics_events: typing.List[str]
+
+class NodeJSProjectComponent(BaseModel):
     type: typing.Optional[types.ComponentType] = None
     command: typing.Optional[types.CommandType] = None
     filePath: typing.Optional[str] = None
@@ -40,18 +52,16 @@ class ProjectComponent(BaseModel):
     error_handling: typing.Optional[str] = None
     example_usage: typing.Optional[str] = None
 
-class ProjectStructure(BaseModel):
-    components: typing.List["ProjectComponent"]
-    entry_point: typing.Optional[str] = None
-    package_dependencies: typing.List[str]
-    file_structure: typing.List[str]
-    implementation_order: typing.List[str]
-
-class RouteGeneratorOutput(BaseModel):
+class NodeJSRouteGeneratorOutput(BaseModel):
     componentType: typing.Optional[types.ComponentType] = None
     routeName: typing.Optional[str] = None
     dependencies: typing.List[str]
     final_code: typing.Optional[str] = None
+
+class ProjectStructure(BaseModel):
+    components: typing.List["NextJSProjectComponent"]
+    color_palette: typing.Optional[str] = None
+    package_dependencies: typing.List[str]
 
 # #########################################################################
 # Generated type aliases (0)

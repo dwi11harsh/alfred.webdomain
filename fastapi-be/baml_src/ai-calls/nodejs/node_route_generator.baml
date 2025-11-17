@@ -1,4 +1,4 @@
-function NodeRouteGenerator (generated_prompt: ProjectComponent ) -> RouteGeneratorOutput {
+function NodeRouteGenerator (generated_prompt: NodeJSProjectComponent ) -> NodeJSRouteGeneratorOutput {
     client Gpt4omini
 
     prompt #"

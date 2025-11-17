@@ -37,13 +37,19 @@ def get_checks(checks: typing.Dict[CheckName, Check]) -> typing.List[Check]:
 def all_succeeded(checks: typing.Dict[CheckName, Check]) -> bool:
     return all(check.status == "succeeded" for check in get_checks(checks))
 # #########################################################################
-# Generated enums (3)
+# Generated enums (6)
 # #########################################################################
+
+class AnalyticsProvider(str, Enum):
+    Posthog = "Posthog"
+    Custom = "Custom"
+    NoAnalytics = "NoAnalytics"
 
 class CommandType(str, Enum):
     CreateFile = "CreateFile"
     UpdateFile = "UpdateFile"
     DeleteFile = "DeleteFile"
+    ReadFile = "ReadFile"
 
 class ComponentType(str, Enum):
     Route = "Route"
@@ -52,16 +58,41 @@ class ComponentType(str, Enum):
     Configuration = "Configuration"
     Model = "Model"
     Service = "Service"
+    Component = "Component"
+    Page = "Page"
+    Layout = "Layout"
+    Admin = "Admin"
+
+class DesignSystem(str, Enum):
+    Custom = "Custom"
+    NoDesignSystem = "NoDesignSystem"
 
 class Framework(str, Enum):
     React = "React"
     Node = "Node"
 
+class TestType(str, Enum):
+    Unit = "Unit"
+    Integration = "Integration"
+    E2e = "E2e"
+
 # #########################################################################
-# Generated classes (3)
+# Generated classes (4)
 # #########################################################################
 
-class ProjectComponent(BaseModel):
+class NextJSProjectComponent(BaseModel):
+    type: ComponentType
+    command: CommandType
+    filePath: str
+    dependencies: typing.List[str]
+    specific_instructions: typing.List[str]
+    input_validation: str
+    error_handling: str
+    design_guidelines: str
+    test_requirements: typing.List[TestType]
+    analytics_events: typing.List[str]
+
+class NodeJSProjectComponent(BaseModel):
     type: ComponentType
     command: CommandType
     filePath: str
@@ -75,18 +106,16 @@ class ProjectComponent(BaseModel):
     error_handling: str
     example_usage: str
 
-class ProjectStructure(BaseModel):
-    components: typing.List["ProjectComponent"]
-    entry_point: str
-    package_dependencies: typing.List[str]
-    file_structure: typing.List[str]
-    implementation_order: typing.List[str]
-
-class RouteGeneratorOutput(BaseModel):
+class NodeJSRouteGeneratorOutput(BaseModel):
     componentType: ComponentType
     routeName: str
     dependencies: typing.List[str]
     final_code: str
+
+class ProjectStructure(BaseModel):
+    components: typing.List["NextJSProjectComponent"]
+    color_palette: str
+    package_dependencies: typing.List[str]
 
 # #########################################################################
 # Generated type aliases (0)

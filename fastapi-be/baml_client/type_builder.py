@@ -20,14 +20,18 @@ from .globals import DO_NOT_USE_DIRECTLY_UNLESS_YOU_KNOW_WHAT_YOURE_DOING_RUNTIM
 class TypeBuilder(type_builder.TypeBuilder):
     def __init__(self):
         super().__init__(classes=set(
-          ["ProjectComponent","ProjectStructure","RouteGeneratorOutput",]
+          ["NextJSProjectComponent","NodeJSProjectComponent","NodeJSRouteGeneratorOutput","ProjectStructure",]
         ), enums=set(
-          ["CommandType","ComponentType","Framework",]
+          ["AnalyticsProvider","CommandType","ComponentType","DesignSystem","Framework","TestType",]
         ), runtime=DO_NOT_USE_DIRECTLY_UNLESS_YOU_KNOW_WHAT_YOURE_DOING_RUNTIME)
 
     # #########################################################################
-    # Generated enums 3
+    # Generated enums 6
     # #########################################################################
+
+    @property
+    def AnalyticsProvider(self) -> "AnalyticsProviderViewer":
+        return AnalyticsProviderViewer(self)
 
     @property
     def CommandType(self) -> "CommandTypeViewer":
@@ -38,37 +42,95 @@ class TypeBuilder(type_builder.TypeBuilder):
         return ComponentTypeViewer(self)
 
     @property
+    def DesignSystem(self) -> "DesignSystemViewer":
+        return DesignSystemViewer(self)
+
+    @property
     def Framework(self) -> "FrameworkViewer":
         return FrameworkViewer(self)
 
+    @property
+    def TestType(self) -> "TestTypeViewer":
+        return TestTypeViewer(self)
+
 
     # #########################################################################
-    # Generated classes 3
+    # Generated classes 4
     # #########################################################################
 
     @property
-    def ProjectComponent(self) -> "ProjectComponentViewer":
-        return ProjectComponentViewer(self)
+    def NextJSProjectComponent(self) -> "NextJSProjectComponentViewer":
+        return NextJSProjectComponentViewer(self)
+
+    @property
+    def NodeJSProjectComponent(self) -> "NodeJSProjectComponentViewer":
+        return NodeJSProjectComponentViewer(self)
+
+    @property
+    def NodeJSRouteGeneratorOutput(self) -> "NodeJSRouteGeneratorOutputViewer":
+        return NodeJSRouteGeneratorOutputViewer(self)
 
     @property
     def ProjectStructure(self) -> "ProjectStructureViewer":
         return ProjectStructureViewer(self)
 
+
+
+# #########################################################################
+# Generated enums 6
+# #########################################################################
+
+class AnalyticsProviderAst:
+    def __init__(self, tb: type_builder.TypeBuilder):
+        _tb = tb._tb # type: ignore (we know how to use this private attribute)
+        self._bldr = _tb.enum("AnalyticsProvider")
+        self._values: typing.Set[str] = set([  "Posthog",  "Custom",  "NoAnalytics",  ])
+        self._vals = AnalyticsProviderValues(self._bldr, self._values)
+
+    def type(self) -> baml_py.FieldType:
+        return self._bldr.field()
+
     @property
-    def RouteGeneratorOutput(self) -> "RouteGeneratorOutputViewer":
-        return RouteGeneratorOutputViewer(self)
+    def values(self) -> "AnalyticsProviderValues":
+        return self._vals
 
 
+class AnalyticsProviderViewer(AnalyticsProviderAst):
+    def __init__(self, tb: type_builder.TypeBuilder):
+        super().__init__(tb)
 
-# #########################################################################
-# Generated enums 3
-# #########################################################################
+    
+    def list_values(self) -> typing.List[typing.Tuple[str, type_builder.EnumValueViewer]]:
+        return [(name, type_builder.EnumValueViewer(self._bldr.value(name))) for name in self._values]
+    
+
+class AnalyticsProviderValues:
+    def __init__(self, enum_bldr: baml_py.EnumBuilder, values: typing.Set[str]):
+        self.__bldr = enum_bldr
+        self.__values = values # type: ignore (we know how to use this private attribute) # noqa: F821
+
+    
+    
+    @property
+    def Posthog(self) -> type_builder.EnumValueViewer:
+        return type_builder.EnumValueViewer(self.__bldr.value("Posthog"))
+    
+    @property
+    def Custom(self) -> type_builder.EnumValueViewer:
+        return type_builder.EnumValueViewer(self.__bldr.value("Custom"))
+    
+    @property
+    def NoAnalytics(self) -> type_builder.EnumValueViewer:
+        return type_builder.EnumValueViewer(self.__bldr.value("NoAnalytics"))
+    
+    
+
 
 class CommandTypeAst:
     def __init__(self, tb: type_builder.TypeBuilder):
         _tb = tb._tb # type: ignore (we know how to use this private attribute)
         self._bldr = _tb.enum("CommandType")
-        self._values: typing.Set[str] = set([  "CreateFile",  "UpdateFile",  "DeleteFile",  ])
+        self._values: typing.Set[str] = set([  "CreateFile",  "UpdateFile",  "DeleteFile",  "ReadFile",  ])
         self._vals = CommandTypeValues(self._bldr, self._values)
 
     def type(self) -> baml_py.FieldType:
@@ -107,6 +169,10 @@ class CommandTypeValues:
     def DeleteFile(self) -> type_builder.EnumValueViewer:
         return type_builder.EnumValueViewer(self.__bldr.value("DeleteFile"))
     
+    @property
+    def ReadFile(self) -> type_builder.EnumValueViewer:
+        return type_builder.EnumValueViewer(self.__bldr.value("ReadFile"))
+    
     
 
 
@@ -114,7 +180,7 @@ class ComponentTypeAst:
     def __init__(self, tb: type_builder.TypeBuilder):
         _tb = tb._tb # type: ignore (we know how to use this private attribute)
         self._bldr = _tb.enum("ComponentType")
-        self._values: typing.Set[str] = set([  "Route",  "Middleware",  "Utility",  "Configuration",  "Model",  "Service",  ])
+        self._values: typing.Set[str] = set([  "Route",  "Middleware",  "Utility",  "Configuration",  "Model",  "Service",  "Component",  "Page",  "Layout",  "Admin",  ])
         self._vals = ComponentTypeValues(self._bldr, self._values)
 
     def type(self) -> baml_py.FieldType:
@@ -165,6 +231,64 @@ class ComponentTypeValues:
     def Service(self) -> type_builder.EnumValueViewer:
         return type_builder.EnumValueViewer(self.__bldr.value("Service"))
     
+    @property
+    def Component(self) -> type_builder.EnumValueViewer:
+        return type_builder.EnumValueViewer(self.__bldr.value("Component"))
+    
+    @property
+    def Page(self) -> type_builder.EnumValueViewer:
+        return type_builder.EnumValueViewer(self.__bldr.value("Page"))
+    
+    @property
+    def Layout(self) -> type_builder.EnumValueViewer:
+        return type_builder.EnumValueViewer(self.__bldr.value("Layout"))
+    
+    @property
+    def Admin(self) -> type_builder.EnumValueViewer:
+        return type_builder.EnumValueViewer(self.__bldr.value("Admin"))
+    
+    
+
+
+class DesignSystemAst:
+    def __init__(self, tb: type_builder.TypeBuilder):
+        _tb = tb._tb # type: ignore (we know how to use this private attribute)
+        self._bldr = _tb.enum("DesignSystem")
+        self._values: typing.Set[str] = set([  "Custom",  "NoDesignSystem",  ])
+        self._vals = DesignSystemValues(self._bldr, self._values)
+
+    def type(self) -> baml_py.FieldType:
+        return self._bldr.field()
+
+    @property
+    def values(self) -> "DesignSystemValues":
+        return self._vals
+
+
+class DesignSystemViewer(DesignSystemAst):
+    def __init__(self, tb: type_builder.TypeBuilder):
+        super().__init__(tb)
+
+    
+    def list_values(self) -> typing.List[typing.Tuple[str, type_builder.EnumValueViewer]]:
+        return [(name, type_builder.EnumValueViewer(self._bldr.value(name))) for name in self._values]
+    
+
+class DesignSystemValues:
+    def __init__(self, enum_bldr: baml_py.EnumBuilder, values: typing.Set[str]):
+        self.__bldr = enum_bldr
+        self.__values = values # type: ignore (we know how to use this private attribute) # noqa: F821
+
+    
+    
+    @property
+    def Custom(self) -> type_builder.EnumValueViewer:
+        return type_builder.EnumValueViewer(self.__bldr.value("Custom"))
+    
+    @property
+    def NoDesignSystem(self) -> type_builder.EnumValueViewer:
+        return type_builder.EnumValueViewer(self.__bldr.value("NoDesignSystem"))
+    
     
 
 
@@ -210,27 +334,73 @@ class FrameworkValues:
     
 
 
-
-# #########################################################################
-# Generated classes 3
-# #########################################################################
-
-class ProjectComponentAst:
+class TestTypeAst:
     def __init__(self, tb: type_builder.TypeBuilder):
         _tb = tb._tb # type: ignore (we know how to use this private attribute)
-        self._bldr = _tb.class_("ProjectComponent")
-        self._properties: typing.Set[str] = set([  "type",  "command",  "filePath",  "current_code",  "name",  "description",  "dependencies",  "specific_instructions",  "expected_behavior",  "input_validation",  "error_handling",  "example_usage",  ])
-        self._props = ProjectComponentProperties(self._bldr, self._properties)
+        self._bldr = _tb.enum("TestType")
+        self._values: typing.Set[str] = set([  "Unit",  "Integration",  "E2e",  ])
+        self._vals = TestTypeValues(self._bldr, self._values)
 
     def type(self) -> baml_py.FieldType:
         return self._bldr.field()
 
     @property
-    def props(self) -> "ProjectComponentProperties":
+    def values(self) -> "TestTypeValues":
+        return self._vals
+
+
+class TestTypeViewer(TestTypeAst):
+    def __init__(self, tb: type_builder.TypeBuilder):
+        super().__init__(tb)
+
+    
+    def list_values(self) -> typing.List[typing.Tuple[str, type_builder.EnumValueViewer]]:
+        return [(name, type_builder.EnumValueViewer(self._bldr.value(name))) for name in self._values]
+    
+
+class TestTypeValues:
+    def __init__(self, enum_bldr: baml_py.EnumBuilder, values: typing.Set[str]):
+        self.__bldr = enum_bldr
+        self.__values = values # type: ignore (we know how to use this private attribute) # noqa: F821
+
+    
+    
+    @property
+    def Unit(self) -> type_builder.EnumValueViewer:
+        return type_builder.EnumValueViewer(self.__bldr.value("Unit"))
+    
+    @property
+    def Integration(self) -> type_builder.EnumValueViewer:
+        return type_builder.EnumValueViewer(self.__bldr.value("Integration"))
+    
+    @property
+    def E2e(self) -> type_builder.EnumValueViewer:
+        return type_builder.EnumValueViewer(self.__bldr.value("E2e"))
+    
+    
+
+
+
+# #########################################################################
+# Generated classes 4
+# #########################################################################
+
+class NextJSProjectComponentAst:
+    def __init__(self, tb: type_builder.TypeBuilder):
+        _tb = tb._tb # type: ignore (we know how to use this private attribute)
+        self._bldr = _tb.class_("NextJSProjectComponent")
+        self._properties: typing.Set[str] = set([  "type",  "command",  "filePath",  "dependencies",  "specific_instructions",  "input_validation",  "error_handling",  "design_guidelines",  "test_requirements",  "analytics_events",  ])
+        self._props = NextJSProjectComponentProperties(self._bldr, self._properties)
+
+    def type(self) -> baml_py.FieldType:
+        return self._bldr.field()
+
+    @property
+    def props(self) -> "NextJSProjectComponentProperties":
         return self._props
 
 
-class ProjectComponentViewer(ProjectComponentAst):
+class NextJSProjectComponentViewer(NextJSProjectComponentAst):
     def __init__(self, tb: type_builder.TypeBuilder):
         super().__init__(tb)
 
@@ -240,7 +410,82 @@ class ProjectComponentViewer(ProjectComponentAst):
     
 
 
-class ProjectComponentProperties:
+class NextJSProjectComponentProperties:
+    def __init__(self, bldr: baml_py.ClassBuilder, properties: typing.Set[str]):
+        self.__bldr = bldr
+        self.__properties = properties # type: ignore (we know how to use this private attribute) # noqa: F821
+
+    
+    
+    @property
+    def type(self) -> type_builder.ClassPropertyViewer:
+        return type_builder.ClassPropertyViewer(self.__bldr.property("type"))
+    
+    @property
+    def command(self) -> type_builder.ClassPropertyViewer:
+        return type_builder.ClassPropertyViewer(self.__bldr.property("command"))
+    
+    @property
+    def filePath(self) -> type_builder.ClassPropertyViewer:
+        return type_builder.ClassPropertyViewer(self.__bldr.property("filePath"))
+    
+    @property
+    def dependencies(self) -> type_builder.ClassPropertyViewer:
+        return type_builder.ClassPropertyViewer(self.__bldr.property("dependencies"))
+    
+    @property
+    def specific_instructions(self) -> type_builder.ClassPropertyViewer:
+        return type_builder.ClassPropertyViewer(self.__bldr.property("specific_instructions"))
+    
+    @property
+    def input_validation(self) -> type_builder.ClassPropertyViewer:
+        return type_builder.ClassPropertyViewer(self.__bldr.property("input_validation"))
+    
+    @property
+    def error_handling(self) -> type_builder.ClassPropertyViewer:
+        return type_builder.ClassPropertyViewer(self.__bldr.property("error_handling"))
+    
+    @property
+    def design_guidelines(self) -> type_builder.ClassPropertyViewer:
+        return type_builder.ClassPropertyViewer(self.__bldr.property("design_guidelines"))
+    
+    @property
+    def test_requirements(self) -> type_builder.ClassPropertyViewer:
+        return type_builder.ClassPropertyViewer(self.__bldr.property("test_requirements"))
+    
+    @property
+    def analytics_events(self) -> type_builder.ClassPropertyViewer:
+        return type_builder.ClassPropertyViewer(self.__bldr.property("analytics_events"))
+    
+    
+
+
+class NodeJSProjectComponentAst:
+    def __init__(self, tb: type_builder.TypeBuilder):
+        _tb = tb._tb # type: ignore (we know how to use this private attribute)
+        self._bldr = _tb.class_("NodeJSProjectComponent")
+        self._properties: typing.Set[str] = set([  "type",  "command",  "filePath",  "current_code",  "name",  "description",  "dependencies",  "specific_instructions",  "expected_behavior",  "input_validation",  "error_handling",  "example_usage",  ])
+        self._props = NodeJSProjectComponentProperties(self._bldr, self._properties)
+
+    def type(self) -> baml_py.FieldType:
+        return self._bldr.field()
+
+    @property
+    def props(self) -> "NodeJSProjectComponentProperties":
+        return self._props
+
+
+class NodeJSProjectComponentViewer(NodeJSProjectComponentAst):
+    def __init__(self, tb: type_builder.TypeBuilder):
+        super().__init__(tb)
+
+    
+    def list_properties(self) -> typing.List[typing.Tuple[str, type_builder.ClassPropertyViewer]]:
+        return [(name, type_builder.ClassPropertyViewer(self._bldr.property(name))) for name in self._properties]
+    
+
+
+class NodeJSProjectComponentProperties:
     def __init__(self, bldr: baml_py.ClassBuilder, properties: typing.Set[str]):
         self.__bldr = bldr
         self.__properties = properties # type: ignore (we know how to use this private attribute) # noqa: F821
@@ -298,11 +543,62 @@ class ProjectComponentProperties:
     
 
 
+class NodeJSRouteGeneratorOutputAst:
+    def __init__(self, tb: type_builder.TypeBuilder):
+        _tb = tb._tb # type: ignore (we know how to use this private attribute)
+        self._bldr = _tb.class_("NodeJSRouteGeneratorOutput")
+        self._properties: typing.Set[str] = set([  "componentType",  "routeName",  "dependencies",  "final_code",  ])
+        self._props = NodeJSRouteGeneratorOutputProperties(self._bldr, self._properties)
+
+    def type(self) -> baml_py.FieldType:
+        return self._bldr.field()
+
+    @property
+    def props(self) -> "NodeJSRouteGeneratorOutputProperties":
+        return self._props
+
+
+class NodeJSRouteGeneratorOutputViewer(NodeJSRouteGeneratorOutputAst):
+    def __init__(self, tb: type_builder.TypeBuilder):
+        super().__init__(tb)
+
+    
+    def list_properties(self) -> typing.List[typing.Tuple[str, type_builder.ClassPropertyViewer]]:
+        return [(name, type_builder.ClassPropertyViewer(self._bldr.property(name))) for name in self._properties]
+    
+
+
+class NodeJSRouteGeneratorOutputProperties:
+    def __init__(self, bldr: baml_py.ClassBuilder, properties: typing.Set[str]):
+        self.__bldr = bldr
+        self.__properties = properties # type: ignore (we know how to use this private attribute) # noqa: F821
+
+    
+    
+    @property
+    def componentType(self) -> type_builder.ClassPropertyViewer:
+        return type_builder.ClassPropertyViewer(self.__bldr.property("componentType"))
+    
+    @property
+    def routeName(self) -> type_builder.ClassPropertyViewer:
+        return type_builder.ClassPropertyViewer(self.__bldr.property("routeName"))
+    
+    @property
+    def dependencies(self) -> type_builder.ClassPropertyViewer:
+        return type_builder.ClassPropertyViewer(self.__bldr.property("dependencies"))
+    
+    @property
+    def final_code(self) -> type_builder.ClassPropertyViewer:
+        return type_builder.ClassPropertyViewer(self.__bldr.property("final_code"))
+    
+    
+
+
 class ProjectStructureAst:
     def __init__(self, tb: type_builder.TypeBuilder):
         _tb = tb._tb # type: ignore (we know how to use this private attribute)
         self._bldr = _tb.class_("ProjectStructure")
-        self._properties: typing.Set[str] = set([  "components",  "entry_point",  "package_dependencies",  "file_structure",  "implementation_order",  ])
+        self._properties: typing.Set[str] = set([  "components",  "color_palette",  "package_dependencies",  ])
         self._props = ProjectStructureProperties(self._bldr, self._properties)
 
     def type(self) -> baml_py.FieldType:
@@ -335,71 +631,12 @@ class ProjectStructureProperties:
         return type_builder.ClassPropertyViewer(self.__bldr.property("components"))
     
     @property
-    def entry_point(self) -> type_builder.ClassPropertyViewer:
-        return type_builder.ClassPropertyViewer(self.__bldr.property("entry_point"))
+    def color_palette(self) -> type_builder.ClassPropertyViewer:
+        return type_builder.ClassPropertyViewer(self.__bldr.property("color_palette"))
     
     @property
     def package_dependencies(self) -> type_builder.ClassPropertyViewer:
         return type_builder.ClassPropertyViewer(self.__bldr.property("package_dependencies"))
-    
-    @property
-    def file_structure(self) -> type_builder.ClassPropertyViewer:
-        return type_builder.ClassPropertyViewer(self.__bldr.property("file_structure"))
-    
-    @property
-    def implementation_order(self) -> type_builder.ClassPropertyViewer:
-        return type_builder.ClassPropertyViewer(self.__bldr.property("implementation_order"))
-    
-    
-
-
-class RouteGeneratorOutputAst:
-    def __init__(self, tb: type_builder.TypeBuilder):
-        _tb = tb._tb # type: ignore (we know how to use this private attribute)
-        self._bldr = _tb.class_("RouteGeneratorOutput")
-        self._properties: typing.Set[str] = set([  "componentType",  "routeName",  "dependencies",  "final_code",  ])
-        self._props = RouteGeneratorOutputProperties(self._bldr, self._properties)
-
-    def type(self) -> baml_py.FieldType:
-        return self._bldr.field()
-
-    @property
-    def props(self) -> "RouteGeneratorOutputProperties":
-        return self._props
-
-
-class RouteGeneratorOutputViewer(RouteGeneratorOutputAst):
-    def __init__(self, tb: type_builder.TypeBuilder):
-        super().__init__(tb)
-
-    
-    def list_properties(self) -> typing.List[typing.Tuple[str, type_builder.ClassPropertyViewer]]:
-        return [(name, type_builder.ClassPropertyViewer(self._bldr.property(name))) for name in self._properties]
-    
-
-
-class RouteGeneratorOutputProperties:
-    def __init__(self, bldr: baml_py.ClassBuilder, properties: typing.Set[str]):
-        self.__bldr = bldr
-        self.__properties = properties # type: ignore (we know how to use this private attribute) # noqa: F821
-
-    
-    
-    @property
-    def componentType(self) -> type_builder.ClassPropertyViewer:
-        return type_builder.ClassPropertyViewer(self.__bldr.property("componentType"))
-    
-    @property
-    def routeName(self) -> type_builder.ClassPropertyViewer:
-        return type_builder.ClassPropertyViewer(self.__bldr.property("routeName"))
-    
-    @property
-    def dependencies(self) -> type_builder.ClassPropertyViewer:
-        return type_builder.ClassPropertyViewer(self.__bldr.property("dependencies"))
-    
-    @property
-    def final_code(self) -> type_builder.ClassPropertyViewer:
-        return type_builder.ClassPropertyViewer(self.__bldr.property("final_code"))
     
     
 

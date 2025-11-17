@@ -16,20 +16,29 @@ from . import stream_types
 
 type_map = {
 
-    "types.ProjectComponent": types.ProjectComponent,
-    "stream_types.ProjectComponent": stream_types.ProjectComponent,
+    "types.NextJSProjectComponent": types.NextJSProjectComponent,
+    "stream_types.NextJSProjectComponent": stream_types.NextJSProjectComponent,
+
+    "types.NodeJSProjectComponent": types.NodeJSProjectComponent,
+    "stream_types.NodeJSProjectComponent": stream_types.NodeJSProjectComponent,
+
+    "types.NodeJSRouteGeneratorOutput": types.NodeJSRouteGeneratorOutput,
+    "stream_types.NodeJSRouteGeneratorOutput": stream_types.NodeJSRouteGeneratorOutput,
 
     "types.ProjectStructure": types.ProjectStructure,
     "stream_types.ProjectStructure": stream_types.ProjectStructure,
 
-    "types.RouteGeneratorOutput": types.RouteGeneratorOutput,
-    "stream_types.RouteGeneratorOutput": stream_types.RouteGeneratorOutput,
 
+    "types.AnalyticsProvider": types.AnalyticsProvider,
 
     "types.CommandType": types.CommandType,
 
     "types.ComponentType": types.ComponentType,
 
+    "types.DesignSystem": types.DesignSystem,
+
     "types.Framework": types.Framework,
+
+    "types.TestType": types.TestType,
 
 }
