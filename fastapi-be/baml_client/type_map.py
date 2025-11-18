@@ -16,6 +16,9 @@ from . import stream_types
 
 type_map = {
 
+    "types.NextJSComponentGeneratorOutput": types.NextJSComponentGeneratorOutput,
+    "stream_types.NextJSComponentGeneratorOutput": stream_types.NextJSComponentGeneratorOutput,
+
     "types.NextJSProjectComponent": types.NextJSProjectComponent,
     "stream_types.NextJSProjectComponent": stream_types.NextJSProjectComponent,
 

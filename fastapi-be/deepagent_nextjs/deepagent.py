@@ -31,6 +31,7 @@ class NextJSDeepagent():
             "model": "openai:gpt-4o"
         }
 
+
     @tool
     def nextjs_generation_critique(self):
         """

@@ -40,6 +40,7 @@ class NextJSProjectComponent {
     type ComponentType
     command CommandType @description("which command needs to be run for this particular component")
     filePath string @description("the path where this command needs to be run. example of filepath would look like 'app/components/Button.tsx', the current project is not using src directory ")
+    current_code string @description("gives back the current code which was already present in this file and returns empty string when there was none")
     dependencies string[] @description("List of other components this depends on (if any)")
     specific_instructions string[] @description("Step-by-step instructions for implementation (5-7 numbered steps, very explicit)")
     input_validation string @description("If applicable, validation rules for inputs, return empty string if its not needed")
@@ -65,6 +66,16 @@ class NodeJSRouteGeneratorOutput {
     routeName string
     dependencies string[] @description("list of dependency that might be required for the creation of this route")
     final_code string
+}
+
+class NextJSComponentGeneratorOutput {
+    componentType ComponentType
+    filePath string @description("the target file path for this component")
+    final_code string @description("the generated code for this component")
+    related_types string[] @description("any type definitions needed in types/ directory, return empty array if none")
+    import_statements string[] @description("any additional imports needed beyond what's in final_code, return empty array if none")
+    setup_instructions string[] @description("npm install commands, config changes, environment variables, etc. return empty array if none")
+    dependencies string[] @description("package dependencies required for this component")
 }
 
 class NodeJSProjectComponent {

@@ -20,7 +20,7 @@ from .globals import DO_NOT_USE_DIRECTLY_UNLESS_YOU_KNOW_WHAT_YOURE_DOING_RUNTIM
 class TypeBuilder(type_builder.TypeBuilder):
     def __init__(self):
         super().__init__(classes=set(
-          ["NextJSProjectComponent","NextjsProjectStructure","NodeJSProjectComponent","NodeJSRouteGeneratorOutput","NodeProjectStructure",]
+          ["NextJSComponentGeneratorOutput","NextJSProjectComponent","NextjsProjectStructure","NodeJSProjectComponent","NodeJSRouteGeneratorOutput","NodeProjectStructure",]
         ), enums=set(
           ["AnalyticsProvider","CommandType","ComponentType","DesignSystem","Framework","TestType",]
         ), runtime=DO_NOT_USE_DIRECTLY_UNLESS_YOU_KNOW_WHAT_YOURE_DOING_RUNTIME)
@@ -55,8 +55,12 @@ class TypeBuilder(type_builder.TypeBuilder):
 
 
     # #########################################################################
-    # Generated classes 5
+    # Generated classes 6
     # #########################################################################
+
+    @property
+    def NextJSComponentGeneratorOutput(self) -> "NextJSComponentGeneratorOutputViewer":
+        return NextJSComponentGeneratorOutputViewer(self)
 
     @property
     def NextJSProjectComponent(self) -> "NextJSProjectComponentViewer":
@@ -386,14 +390,77 @@ class TestTypeValues:
 
 
 # #########################################################################
-# Generated classes 5
+# Generated classes 6
 # #########################################################################
+
+class NextJSComponentGeneratorOutputAst:
+    def __init__(self, tb: type_builder.TypeBuilder):
+        _tb = tb._tb # type: ignore (we know how to use this private attribute)
+        self._bldr = _tb.class_("NextJSComponentGeneratorOutput")
+        self._properties: typing.Set[str] = set([  "componentType",  "filePath",  "final_code",  "related_types",  "import_statements",  "setup_instructions",  "dependencies",  ])
+        self._props = NextJSComponentGeneratorOutputProperties(self._bldr, self._properties)
+
+    def type(self) -> baml_py.FieldType:
+        return self._bldr.field()
+
+    @property
+    def props(self) -> "NextJSComponentGeneratorOutputProperties":
+        return self._props
+
+
+class NextJSComponentGeneratorOutputViewer(NextJSComponentGeneratorOutputAst):
+    def __init__(self, tb: type_builder.TypeBuilder):
+        super().__init__(tb)
+
+    
+    def list_properties(self) -> typing.List[typing.Tuple[str, type_builder.ClassPropertyViewer]]:
+        return [(name, type_builder.ClassPropertyViewer(self._bldr.property(name))) for name in self._properties]
+    
+
+
+class NextJSComponentGeneratorOutputProperties:
+    def __init__(self, bldr: baml_py.ClassBuilder, properties: typing.Set[str]):
+        self.__bldr = bldr
+        self.__properties = properties # type: ignore (we know how to use this private attribute) # noqa: F821
+
+    
+    
+    @property
+    def componentType(self) -> type_builder.ClassPropertyViewer:
+        return type_builder.ClassPropertyViewer(self.__bldr.property("componentType"))
+    
+    @property
+    def filePath(self) -> type_builder.ClassPropertyViewer:
+        return type_builder.ClassPropertyViewer(self.__bldr.property("filePath"))
+    
+    @property
+    def final_code(self) -> type_builder.ClassPropertyViewer:
+        return type_builder.ClassPropertyViewer(self.__bldr.property("final_code"))
+    
+    @property
+    def related_types(self) -> type_builder.ClassPropertyViewer:
+        return type_builder.ClassPropertyViewer(self.__bldr.property("related_types"))
+    
+    @property
+    def import_statements(self) -> type_builder.ClassPropertyViewer:
+        return type_builder.ClassPropertyViewer(self.__bldr.property("import_statements"))
+    
+    @property
+    def setup_instructions(self) -> type_builder.ClassPropertyViewer:
+        return type_builder.ClassPropertyViewer(self.__bldr.property("setup_instructions"))
+    
+    @property
+    def dependencies(self) -> type_builder.ClassPropertyViewer:
+        return type_builder.ClassPropertyViewer(self.__bldr.property("dependencies"))
+    
+    
+
 
 class NextJSProjectComponentAst:
     def __init__(self, tb: type_builder.TypeBuilder):
         _tb = tb._tb # type: ignore (we know how to use this private attribute)
         self._bldr = _tb.class_("NextJSProjectComponent")
-        self._properties: typing.Set[str] = set([  "type",  "command",  "filePath",  "dependencies",  "specific_instructions",  "input_validation",  "error_handling",  "design_guidelines",  "test_requirements",  "analytics_events",  ])
+        self._properties: typing.Set[str] = set([  "type",  "command",  "filePath",  "current_code",  "dependencies",  "specific_instructions",  "input_validation",  "error_handling",  "design_guidelines",  "test_requirements",  "analytics_events",  ])
         self._props = NextJSProjectComponentProperties(self._bldr, self._properties)
 
     def type(self) -> baml_py.FieldType:
@@ -432,6 +499,10 @@ class NextJSProjectComponentProperties:
     @property
     def filePath(self) -> type_builder.ClassPropertyViewer:
         return type_builder.ClassPropertyViewer(self.__bldr.property("filePath"))
+    
+    @property
+    def current_code(self) -> type_builder.ClassPropertyViewer:
+        return type_builder.ClassPropertyViewer(self.__bldr.property("current_code"))
     
     @property
     def dependencies(self) -> type_builder.ClassPropertyViewer:

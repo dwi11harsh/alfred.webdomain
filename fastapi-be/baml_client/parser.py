@@ -24,6 +24,12 @@ class LlmResponseParser:
     def __init__(self, options: DoNotUseDirectlyCallManager):
         self.__options = options
 
+    def BuildNextjsProjectComponent(
+        self, llm_response: str, baml_options: BamlCallOptions = {},
+    ) -> types.NextJSComponentGeneratorOutput:
+        result = self.__options.merge_options(baml_options).parse_response(function_name="BuildNextjsProjectComponent", llm_response=llm_response, mode="request")
+        return typing.cast(types.NextJSComponentGeneratorOutput, result)
+
     def CritiqueNextjsProjectStructure(
         self, llm_response: str, baml_options: BamlCallOptions = {},
     ) -> str:
@@ -67,6 +73,12 @@ class LlmStreamParser:
 
     def __init__(self, options: DoNotUseDirectlyCallManager):
         self.__options = options
+
+    def BuildNextjsProjectComponent(
+        self, llm_response: str, baml_options: BamlCallOptions = {},
+    ) -> stream_types.NextJSComponentGeneratorOutput:
+        result = self.__options.merge_options(baml_options).parse_response(function_name="BuildNextjsProjectComponent", llm_response=llm_response, mode="stream")
+        return typing.cast(stream_types.NextJSComponentGeneratorOutput, result)
 
     def CritiqueNextjsProjectStructure(
         self, llm_response: str, baml_options: BamlCallOptions = {},

@@ -77,13 +77,23 @@ class TestType(str, Enum):
     E2e = "E2e"
 
 # #########################################################################
-# Generated classes (5)
+# Generated classes (6)
 # #########################################################################
+
+class NextJSComponentGeneratorOutput(BaseModel):
+    componentType: ComponentType
+    filePath: str
+    final_code: str
+    related_types: typing.List[str]
+    import_statements: typing.List[str]
+    setup_instructions: typing.List[str]
+    dependencies: typing.List[str]
 
 class NextJSProjectComponent(BaseModel):
     type: ComponentType
     command: CommandType
     filePath: str
+    current_code: str
     dependencies: typing.List[str]
     specific_instructions: typing.List[str]
     input_validation: str

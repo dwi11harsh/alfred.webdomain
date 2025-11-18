@@ -23,13 +23,23 @@ class StreamState(BaseModel, typing.Generic[StreamStateValueT]):
     value: StreamStateValueT
     state: typing_extensions.Literal["Pending", "Incomplete", "Complete"]
 # #########################################################################
-# Generated classes (5)
+# Generated classes (6)
 # #########################################################################
+
+class NextJSComponentGeneratorOutput(BaseModel):
+    componentType: typing.Optional[types.ComponentType] = None
+    filePath: typing.Optional[str] = None
+    final_code: typing.Optional[str] = None
+    related_types: typing.List[str]
+    import_statements: typing.List[str]
+    setup_instructions: typing.List[str]
+    dependencies: typing.List[str]
 
 class NextJSProjectComponent(BaseModel):
     type: typing.Optional[types.ComponentType] = None
     command: typing.Optional[types.CommandType] = None
     filePath: typing.Optional[str] = None
+    current_code: typing.Optional[str] = None
     dependencies: typing.List[str]
     specific_instructions: typing.List[str]
     input_validation: typing.Optional[str] = None
