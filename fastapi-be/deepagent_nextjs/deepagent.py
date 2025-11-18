@@ -1,9 +1,10 @@
 from deepagents import create_deep_agent
 from deepagent_nextjs.tavily_client import get_tavily_client
-from model.main import gpt_4o_mid, gpt_4o_large, gpt_4o_small
+from model.main import gpt_4, gpt_4o_mid, gpt_4o_large, gpt_4o_small
 from langchain_core.tools import tool
 from baml_client import b
 from baml_client.types import (NextjsProjectStructure)
+
 
 research_instructions = """
 You are an expert researcher. Your job is to conduct thorough research, and then write a polished report.
@@ -66,4 +67,13 @@ class NextJSDeepagent():
             max_results=5,
             include_raw_content=False,
         )
+
+
+def generate(state: dict) -> dict:
+    question = state['question']
+    llm = gpt_4()
+
+    response = llm.invoke(f"Answer the following: {question}")
+
+    return {"answer": response.content}
 

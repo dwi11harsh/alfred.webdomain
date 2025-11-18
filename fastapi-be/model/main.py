@@ -1,5 +1,5 @@
 import os
-from langchain_openai import OpenAI
+from langchain_openai import OpenAI, ChatOpenAI
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -55,3 +55,12 @@ def gpt_4o_large():
         
     )
 
+def gpt_4():
+    """
+        gpt 4 modle with no token limit
+    """
+    api_key = os.getenv("OPENAI_API_KEY")
+    if not api_key:
+        raise ValueError("OPENAI_API_KEY environment variable is not set")
+
+    return ChatOpenAI(name="gpt-4", api_key=api_key)
