@@ -69,11 +69,3 @@ class NextJSDeepagent():
         )
 
 
-def generate(state: dict) -> dict:
-    question = state['question']
-    llm = gpt_4()
-
-    response = llm.invoke(f"Answer the following: {question}")
-
-    return {"answer": response.content}
-

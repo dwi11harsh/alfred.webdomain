@@ -1,0 +1,24 @@
+{
+  "venvPath": "/Users/harsh/codes/100daysoflearnings/alfred.webdomain/fastapi-be",
+  "venv": ".venv",
+  "pythonVersion": "3.13",
+  "pythonPlatform": "Darwin",
+  "typeCheckingMode": "basic",
+  "reportMissingImports": true,
+  "reportMissingTypeStubs": false,
+  "pythonPath": "/Users/harsh/codes/100daysoflearnings/alfred.webdomain/fastapi-be/.venv/bin/python",
+  "extraPaths": [
+    "/Users/harsh/codes/100daysoflearnings/alfred.webdomain/fastapi-be/.venv/lib/python3.13/site-packages"
+  ],
+  "executionEnvironments": [
+    {
+      "root": "/Users/harsh/codes/100daysoflearnings/alfred.webdomain/fastapi-be",
+      "pythonVersion": "3.13",
+      "pythonPlatform": "Darwin",
+      "pythonPath": "/Users/harsh/codes/100daysoflearnings/alfred.webdomain/fastapi-be/.venv/bin/python",
+      "extraPaths": [
+        "/Users/harsh/codes/100daysoflearnings/alfred.webdomain/fastapi-be/.venv/lib/python3.13/site-packages"
+      ]
+    }
+  ]
+}
