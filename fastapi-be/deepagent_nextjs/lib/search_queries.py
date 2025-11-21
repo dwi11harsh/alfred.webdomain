@@ -5,7 +5,7 @@ from tavily_client import get_tavily_client
 logger = logging.getLogger()
 
 
-def search_queries(
+def search_query_on_web(
     queries: list[str], 
     search_depth: Literal["basic", "advanced"] = "basic", 
     max_results: int = 5, 
