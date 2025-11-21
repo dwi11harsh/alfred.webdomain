@@ -21,8 +21,8 @@ def prompt_breakdown_for_web_search(query: str) -> list[str] | None:
     client = OpenAI(api_key=openai_api_key)
     
     try:
-      print("fetching response")
-      raw_response = client.beta.chat.completions.parse(
+        print("fetching response")
+        raw_response = client.beta.chat.completions.parse(
             model="gpt-4o",
             messages=[
                 {"role": "system", "content": "You are an expert prompt engineer. You will be given a single string that might be too complex to search on the web. Generate a series of simple queries which will be searched on the internet. These queries should generate concrete, precise & actionable answers for the topic given."},
@@ -50,8 +50,12 @@ def prompt_breakdown_for_web_search(query: str) -> list[str] | None:
             max_tokens=500,
             timeout=10.0
         )
-      json_response = json.loads(raw_response.choices[0].message.content)
-      return json_response['queries']
+        try:
+            json_response = json.loads(raw_response.choices[0].message.content)
+            return json_response['queries']
+        except Exception as e:
+            logger.error("Error occured while parsing broken down prompts")
+            return None
         
     except Exception as e:
         print(f"error generating the subqueries: {e}")
