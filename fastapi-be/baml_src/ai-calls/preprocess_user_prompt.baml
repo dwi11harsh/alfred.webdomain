@@ -16,5 +16,7 @@ function PreprocessUserPrompt (user_prompt: string) -> string {
         Original prompt: {{user_prompt}}
         
         Refined prompt:
+
+        {{ctx.output_format}}
     "#
 }
