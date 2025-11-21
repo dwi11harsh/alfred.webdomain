@@ -4,3 +4,4 @@ backend/dist/
 __pycache__/
 .cursor/
 .vscode/
+.venv-test/

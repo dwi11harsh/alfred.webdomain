@@ -1,6 +1,6 @@
 import logging
 from typing import Literal
-from tavily_client import get_tavily_client
+from .tavily_client import get_tavily_client
 
 logger = logging.getLogger()
 
@@ -88,7 +88,18 @@ def search_query_on_web(
         tavily_responses = []
         logger.info("Successfully generated tavily client")
 
+        # Optimized: Deduplicate queries before searching (normalize and remove duplicates)
+        seen_queries = set()
+        unique_queries = []
         for query in queries:
+            normalized = query.lower().strip()
+            if normalized and normalized not in seen_queries:
+                seen_queries.add(normalized)
+                unique_queries.append(query)  # Keep original query for search
+        
+        logger.info(f"Deduplicated queries: {len(queries)} -> {len(unique_queries)}")
+
+        for query in unique_queries:
             response = tavily_client.search(
                 query=query,
                 search_depth=search_depth,
